@@ -11,7 +11,7 @@
             <li role="presentation"><asp:LinkButton ID="btnEmail" runat="server" OnClick="EmailBtn_Click">Range 4</asp:LinkButton></li>
             <li role="presentation"><asp:LinkButton ID="btnPassword" runat="server" OnClick="PasswordBtn_Click">Range 3</asp:LinkButton></li>
             <li role="presentation"><asp:LinkButton ID="btnApply" runat="server" OnClick="ApplyBtn_Click">Range 2</asp:LinkButton></li>
-            <li role="presentation"><asp:LinkButton ID="btnActive" runat="server" OnClick="ActiveBtn_Click">Rnage 1</asp:LinkButton></li>
+            <li role="presentation"><asp:LinkButton ID="btnActive" runat="server" OnClick="ActiveBtn_Click">Range 1</asp:LinkButton></li>
         </ul>
         
         <asp:Panel runat="server" ID="pnlPersonal" >

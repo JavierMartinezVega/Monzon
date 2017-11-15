@@ -90,6 +90,7 @@
   </ItemGroup>
   <ItemGroup>
     <Content Include="Global.asax" />
+    <Content Include="Pages\Post.aspx" />
     <Content Include="Pages\PasswordRecovery.aspx" />
     <Content Include="Pages\Register.aspx" />
     <Content Include="Pages\Forbiden.aspx" />
@@ -118,6 +119,13 @@
     </Compile>
     <Compile Include="MasterPages\Monzon.Master.designer.cs">
       <DependentUpon>Monzon.Master</DependentUpon>
+    </Compile>
+    <Compile Include="Pages\Post.aspx.cs">
+      <DependentUpon>Post.aspx</DependentUpon>
+      <SubType>ASPXCodeBehind</SubType>
+    </Compile>
+    <Compile Include="Pages\Post.aspx.designer.cs">
+      <DependentUpon>Post.aspx</DependentUpon>
     </Compile>
     <Compile Include="Pages\PasswordRecovery.aspx.cs">
       <DependentUpon>PasswordRecovery.aspx</DependentUpon>

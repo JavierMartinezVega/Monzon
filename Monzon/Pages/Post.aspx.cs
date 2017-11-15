@@ -2,27 +2,31 @@
 namespace Monzon.Pages
 {
     using System;
+    using System.Data.Entity;
+    using System.Linq;
+    using System.Text.RegularExpressions;
+    using BL.Model;
 
-    public partial class Blog : System.Web.UI.Page
+    public partial class Post : System.Web.UI.Page
     {
         protected void Page_Load(object sender, EventArgs e)
         {
             //if (!IsPostBack)
             //{
-            //    //pnlEmail.Visible = false;
-            //    //btnEmail.Attributes.Remove("class");
+            //    pnlEmail.Visible = false;
+            //    btnEmail.Attributes.Remove("class");
 
-            //    //pnlApply.Visible = false;
-            //    //btnApply.Attributes.Remove("class");
+            //    pnlApply.Visible = false;
+            //    btnApply.Attributes.Remove("class");
 
-            //    //pnlPassword.Visible = false;
-            //    //btnPassword.Attributes.Remove("class");
+            //    pnlPassword.Visible = false;
+            //    btnPassword.Attributes.Remove("class");
 
-            //    //pnlPersonal.Visible = true;
-            //    //btnPersonal.Attributes.Add("class", "active");
+            //    pnlPersonal.Visible = true;
+            //    btnPersonal.Attributes.Add("class", "active");
 
-            //    //pnlActive.Visible = false;
-            //    //btnActive.Attributes.Remove("class");
+            //    pnlActive.Visible = false;
+            //    btnActive.Attributes.Remove("class");
 
             //    var user = (LOGIN)Session["USER"];
 
@@ -42,38 +46,38 @@ namespace Monzon.Pages
 
         //protected void PasswordBtn_Click(object sender, EventArgs e)
         //{
-        //    //pnlEmail.Visible = false;
-        //    //btnEmail.Attributes.Remove("class");
+        //    pnlEmail.Visible = false;
+        //    btnEmail.Attributes.Remove("class");
 
-        //    //pnlApply.Visible = false;
-        //    //btnApply.Attributes.Remove("class");
+        //    pnlApply.Visible = false;
+        //    btnApply.Attributes.Remove("class");
 
-        //    //pnlPassword.Visible = true;
-        //    //btnPassword.Attributes.Add("class", "active");
+        //    pnlPassword.Visible = true;
+        //    btnPassword.Attributes.Add("class", "active");
 
-        //    //pnlPersonal.Visible = false;
-        //    //btnPersonal.Attributes.Remove("class");
+        //    pnlPersonal.Visible = false;
+        //    btnPersonal.Attributes.Remove("class");
 
-        //    //pnlActive.Visible = false;
-        //    //btnActive.Attributes.Remove("class");
+        //    pnlActive.Visible = false;
+        //    btnActive.Attributes.Remove("class");
         //}
 
         //protected void EmailBtn_Click(object sender, EventArgs e)
         //{
-        //    //pnlEmail.Visible = true;
-        //    //btnEmail.Attributes.Add("class", "active"); 
+        //    pnlEmail.Visible = true;
+        //    btnEmail.Attributes.Add("class", "active"); 
 
-        //    //pnlPassword.Visible = false;
-        //    //btnPassword.Attributes.Remove("class");
+        //    pnlPassword.Visible = false;
+        //    btnPassword.Attributes.Remove("class");
 
-        //    //pnlPersonal.Visible = false;
-        //    //btnPersonal.Attributes.Remove("class");
+        //    pnlPersonal.Visible = false;
+        //    btnPersonal.Attributes.Remove("class");
 
-        //    //pnlApply.Visible = false;
-        //    //btnApply.Attributes.Remove("class");
+        //    pnlApply.Visible = false;
+        //    btnApply.Attributes.Remove("class");
 
-        //    //pnlActive.Visible = false;
-        //    //btnActive.Attributes.Remove("class");
+        //    pnlActive.Visible = false;
+        //    btnActive.Attributes.Remove("class");
         //}
 
         //protected void ActiveBtn_Click(object sender, EventArgs e)
@@ -201,12 +205,7 @@ namespace Monzon.Pages
 
         protected void Unnamed13_Click(object sender, EventArgs e)
         {
-            Load3More();
-        }
-
-        private void Load3More()
-        {
-            
+            Response.Redirect("Blog.aspx");  
         }
     }
 }

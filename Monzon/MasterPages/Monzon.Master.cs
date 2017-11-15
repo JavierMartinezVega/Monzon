@@ -52,6 +52,11 @@ namespace Monzon.MasterPages
             }
         }
 
+        protected void Unnamed2_Click(object sender, EventArgs e)
+        {
+           Response.Redirect("Register.aspx");
+        }
+
         protected void logoutButton_Click(object sender, EventArgs e)
         {
             Session["USER"] = null;

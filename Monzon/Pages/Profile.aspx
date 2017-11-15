@@ -16,75 +16,76 @@
         
         <asp:Panel runat="server" ID="pnlPersonal" >
             <asp:Panel runat="server" CssClass="contentItem" >
-                <asp:Label runat="server" ID="lblName">Nombre:</asp:Label>
+                <asp:Label runat="server" ID="lblName">Name:</asp:Label>
                 <asp:TextBox runat="server" ID="txtName"></asp:TextBox>
             </asp:Panel>
             <asp:Panel runat="server" CssClass="contentItem">
-                <asp:Label runat="server" ID="Label1">Apellidos:</asp:Label>
+                <asp:Label runat="server" ID="Label1">Surname:</asp:Label>
                 <asp:TextBox runat="server" ID="txtSurname"></asp:TextBox>
             </asp:Panel>
     
             <asp:Panel runat="server" CssClass="contentItem">
-                <asp:Label runat="server" ID="Label2">Teléfono:</asp:Label>
+                <asp:Label runat="server" ID="Label2">Phone (optional):</asp:Label>
                 <asp:TextBox runat="server" ID="txtPhone"></asp:TextBox>
             </asp:Panel>
-            <asp:Button Text="Guardar" runat="server" CssClass="saveButton" OnClick="Unnamed5_Click"/>
+            <asp:Button Text="Save" runat="server" CssClass="saveButton" OnClick="Unnamed5_Click"/>
         </asp:Panel>
         
         <asp:Panel runat="server" ID="pnlEmail" Visible="false">
             <asp:Panel runat="server" CssClass="contentItem" >
-                <asp:Label runat="server" ID="Label6">Actual:</asp:Label>
+                <asp:Label runat="server" ID="Label6">Current:</asp:Label>
                 <asp:TextBox runat="server" ID="txtEmailOld" Enabled="false"></asp:TextBox>
             </asp:Panel>
             <asp:Panel runat="server" CssClass="contentItem">
-                <asp:Label runat="server" ID="Label7">Nuevo:</asp:Label>
+                <asp:Label runat="server" ID="Label7">New:</asp:Label>
                 <asp:TextBox runat="server" ID="txtEmailNew"></asp:TextBox>
             </asp:Panel>
     
             <asp:Panel runat="server" CssClass="contentItem">
-                <asp:Label runat="server" ID="Label8">Repetir Nuevo:</asp:Label>
+                <asp:Label runat="server" ID="Label8">New (repeat):</asp:Label>
                 <asp:TextBox runat="server" ID="txtEmailNewRepeat"></asp:TextBox>
             </asp:Panel>
-            <asp:Button Text="Guardar" runat="server" CssClass="saveButton" OnClick="Unnamed9_Click"/>
+            <asp:Button Text="Save" runat="server" CssClass="saveButton" OnClick="Unnamed9_Click"/>
         </asp:Panel>
 
         <asp:Panel runat="server" ID="pnlPassword" Visible="false">
             <asp:Panel runat="server" CssClass="contentItem" >
-                <asp:Label runat="server" ID="Label3">Actual:</asp:Label>
+                <asp:Label runat="server" ID="Label3">Current:</asp:Label>
                 <asp:TextBox runat="server" ID="txtPasswordOld"></asp:TextBox>
             </asp:Panel>
             <asp:Panel runat="server" CssClass="contentItem">
-                <asp:Label runat="server" ID="Label4">Nueva:</asp:Label>
+                <asp:Label runat="server" ID="Label4">New:</asp:Label>
                 <asp:TextBox runat="server" ID="txtPasswordNew"></asp:TextBox>
             </asp:Panel>
     
             <asp:Panel runat="server" CssClass="contentItem">
-                <asp:Label runat="server" ID="Label5">Repetir Nueva:</asp:Label>
+                <asp:Label runat="server" ID="Label5">New (repeat):</asp:Label>
                 <asp:TextBox runat="server" ID="txtPasswordNewRepeat"></asp:TextBox>
             </asp:Panel>
-            <asp:Button Text="Guardar" runat="server" CssClass="saveButton" OnClick="Unnamed13_Click"/>
+            <asp:Button Text="Save" runat="server" CssClass="saveButton" OnClick="Unnamed13_Click"/>
         </asp:Panel>
         
         <asp:Panel runat="server" ID="pnlApply" Visible="false">
+            * Be sure you meet all the requirements specified in the guild section before applying please. Applications that don´t meet the requirements will be probably discarded. To apply for the guild membership you must own an account here, you can apply directly while registering.
             <asp:Panel runat="server" CssClass="contentItem" >
-                <asp:Label runat="server" ID="Label9">Actual:</asp:Label>
-                <asp:TextBox runat="server" ID="TextBox1"></asp:TextBox>
+                <asp:Label runat="server" ID="Label9">Player name:</asp:Label>
+                <asp:TextBox runat="server" ID="txtPlayerName"></asp:TextBox>
             </asp:Panel>
             <asp:Panel runat="server" CssClass="contentItem">
-                <asp:Label runat="server" ID="Label10">Nueva:</asp:Label>
-                <asp:TextBox runat="server" ID="TextBox2"></asp:TextBox>
+                <asp:Label runat="server" ID="Label10">Player coords (X / Y):</asp:Label>
+                <asp:TextBox runat="server" ID="txtCoords"></asp:TextBox>
             </asp:Panel>
     
             <asp:Panel runat="server" CssClass="contentItem">
-                <asp:Label runat="server" ID="Label11">Repetir Nueva:</asp:Label>
-                <asp:TextBox runat="server" ID="TextBox3"></asp:TextBox>
+                <asp:Label runat="server" ID="Label11">Previous guild (optional):</asp:Label>
+                <asp:TextBox runat="server" ID="txtGuild"></asp:TextBox>
             </asp:Panel>
-            <asp:Button Text="Guardar" runat="server" CssClass="saveButton" OnClick="Unnamed13_Click"/>
-        </asp:Panel>
-        
-         <asp:Panel runat="server" ID="pnlActive" Visible="false">
-           
-            <asp:Button Text="Mark me as active this week" runat="server" CssClass="saveButton" OnClick="Unnamed13_Click"/>
+             <asp:Panel runat="server" CssClass="contentItem">
+                <asp:Label runat="server" ID="Label12">Comments (optional):</asp:Label>
+                <asp:TextBox runat="server" ID="txtComments"></asp:TextBox>
+            </asp:Panel>
+
+            <asp:Button Text="Apply" runat="server" CssClass="saveButton" OnClick="Unnamed13_Click"/>
         </asp:Panel>
 
     </asp:Panel>

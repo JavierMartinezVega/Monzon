@@ -17,8 +17,7 @@ namespace Monzon.Pages
 
                 if (user != null)
                 {
-                    txtName.Text = user.FIRST_NAME + " " + user.LAST_NAME;
-                    txtEmail.Text = user.EMAIL;
+                    Response.Redirect("Forbiden.aspx");
                 }
             }
         }
@@ -47,38 +46,59 @@ namespace Monzon.Pages
 
         protected void Unnamed13_Click(object sender, EventArgs e)
         {
+            bool valid = true;
 
-            //SEND EMAIL
+            if (string.IsNullOrEmpty(txtUsername.Text))
+            {
+                pnlUsernameError.Visible = true;
+                valid = false;
+            }
+
+            if (string.IsNullOrEmpty(txtName.Text))
+            {
+                pnlNameError.Visible = true;
+                valid = false;
+            }
+
+            if (string.IsNullOrEmpty(txtSurname.Text))
+            {
+                pnlSurnameError.Visible = true;
+                valid = false;
+            }
 
 
-            //var user = (LOGIN)Session["USER"];
+            if (string.IsNullOrEmpty(txtEmail.Text))
+            {
+                pnlEmailError.Visible = true;
+                valid = false;
+            }
+            else
+            {
+                if (!ValidEmail(txtEmail.Text))
+                {
+                    pnlEmailError.Visible = true;
+                    valid = false;
+                }
+            }
 
-            //if (user != null)
-            //{
-            //    using (var db = new MonzonEntities())
-            //    {
-            //        var dbUser = db.LOGIN.FirstOrDefault(l => l.UNIQUE_ID == user.UNIQUE_ID);
 
-            //        if (txtPasswordNew.Text == dbUser.PASSWORD)
-            //        {
-            //            if (txtPasswordNew.Text != txtPasswordNewRepeat.Text)
-            //            {
-            //                //LAS PASSWORD NUEVAS NO COINCIDEN
-            //            }
-            //            else
-            //            {
-            //                dbUser.PASSWORD = txtPasswordNew.Text;
-            //                db.LOGIN.Attach(dbUser);
-            //                db.Entry(dbUser).State = EntityState.Modified;
-            //                db.SaveChanges();
-            //            }
-            //        }
-            //        else
-            //        {
-            //            //LA PASSWORD ANTIGUA NO ES CORRECTA
-            //        }
-            //    }
-            //}
+            if (string.IsNullOrEmpty(txtPassword.Text))
+            {
+                pnlPasswordError.Visible = true;
+                valid = false;
+            }
+
+
+            if (txtPassword.Text != txtPasswordRepeat.Text)
+            {
+                pnlPasswordRepeatError.Visible = true;
+                valid = false;
+            }
+
+            if (valid)
+            {
+                //POST USER
+            }
         }
     }
 }

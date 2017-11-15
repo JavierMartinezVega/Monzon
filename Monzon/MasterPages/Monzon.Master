@@ -242,7 +242,8 @@
     <form id="form1" runat="server">
         <asp:Panel ID="Panel1" runat="server" class="header">
             <asp:Panel ID="pnlAcceso" runat="server">
-                <asp:Button runat="server" Text="ACCESO CLIENTES" class="accessButton" OnClick="Unnamed1_Click" />
+                <asp:Button runat="server" Text="SIGN IN" class="accessButton" OnClick="Unnamed1_Click" />
+                <asp:Button runat="server" Text="SIGN UP" class="accessButton" OnClick="Unnamed2_Click" />
             </asp:Panel>
             <asp:Panel ID="pnlUser" runat="server" Visible="False">
                     
@@ -283,7 +284,6 @@
                         </ul>
                     </li>
                     <li><asp:Button runat="server" text="Blog" ID="btnCartanica" OnClick="btnCartanica_Click"></asp:Button></li>
-                    <!--<li><asp:Button runat="server" text="My Profile" ID="btnProfile" OnClick="btnProfile_Click"></asp:Button></li>-->
                     <li><asp:Button runat="server" text="Contact" ID="btnContact" OnClick="btnContact_Click"></asp:Button></li>
                 </ul>
             </asp:Panel>
@@ -297,14 +297,7 @@
                     <li><asp:Button runat="server" text="Contact" ID="btnContact2" OnClick="btnContact_Click"></asp:Button></li>
                 </ul>
             </asp:Panel>
-            <%--<asp:Panel runat="server" ID="menuLogged" Visible="false" CssClass="menu">
-                <ul class="menuInner">
-                    <li>Mis Incidencias</li>
-                    <li>Mis Avisos</li>
-                    <li>Mis Contratos</li>
-                    <li>Contacto</li>
-                </ul>
-            </asp:Panel>--%>
+          
             <asp:Panel runat="server" ID="menuAdmin" Visible="false" CssClass="menu">
                 <ul class="menuInner">
                     <li>Usuarios</li>
@@ -319,15 +312,15 @@
                 <div class="logo">
                     <img alt="Logo" src="images/gasflow-grey.png"></div>
                     <asp:Panel runat="server" ID="pnlFobiden" class="alert" Visible="false">
-                        El Usuario o la Contraseña es incorrecta
+                        User or password are incorrect
                     </asp:Panel>
-                <asp:label runat="server" for="txtUser">Usuario</asp:label>
+                <asp:label runat="server" for="txtUser">User</asp:label>
                 <asp:TextBox runat="server" autofocus="true" ID="txtUser" type="text"/>
                 <br/>
-                <asp:label runat="server" for= "txtPass">Contraseña</asp:label>
+                <asp:label runat="server" for= "txtPass">Password</asp:label>
                 <asp:TextBox runat="server" autofocus="true" ID="txtPass" type="password"/>
                 <div class="actions">
-                    <asp:button runat="server" class="activeButton" type="submit" Text="Entrar" OnClick="Unnamed3_Click"></asp:button>
+                    <asp:button runat="server" class="activeButton" type="submit" Text="Sign In" OnClick="Unnamed3_Click"></asp:button>
                 </div>
             </asp:Panel>
         </asp:Panel>

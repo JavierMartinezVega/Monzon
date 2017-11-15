@@ -25,9 +25,6 @@ namespace Monzon.Pages
                 pnlPersonal.Visible = true;
                 btnPersonal.Attributes.Add("class", "active");
 
-                pnlActive.Visible = false;
-                btnActive.Attributes.Remove("class");
-
                 var user = (LOGIN)Session["USER"];
 
                 if (user != null)
@@ -57,9 +54,6 @@ namespace Monzon.Pages
 
             pnlPersonal.Visible = false;
             btnPersonal.Attributes.Remove("class");
-
-            pnlActive.Visible = false;
-            btnActive.Attributes.Remove("class");
         }
 
         protected void EmailBtn_Click(object sender, EventArgs e)
@@ -75,9 +69,6 @@ namespace Monzon.Pages
 
             pnlApply.Visible = false;
             btnApply.Attributes.Remove("class");
-
-            pnlActive.Visible = false;
-            btnActive.Attributes.Remove("class");
         }
 
         protected void ActiveBtn_Click(object sender, EventArgs e)
@@ -93,9 +84,6 @@ namespace Monzon.Pages
 
             pnlPersonal.Visible = false;
             btnPersonal.Attributes.Add("class", "active");
-
-            pnlActive.Visible = true;
-            btnActive.Attributes.Add("class", "active");
         }
         
         protected void PersonalBtn_Click(object sender, EventArgs e)
@@ -111,9 +99,6 @@ namespace Monzon.Pages
 
             pnlPersonal.Visible = true;
             btnPersonal.Attributes.Add("class", "active");
-
-            pnlActive.Visible = false;
-            btnActive.Attributes.Remove("class");
         }
 
         protected void ApplyBtn_Click(object sender, EventArgs e)
@@ -129,9 +114,6 @@ namespace Monzon.Pages
 
             pnlApply.Visible = false;
             btnApply.Attributes.Add("class", "active");
-
-            pnlActive.Visible = false;
-            btnActive.Attributes.Remove("class");
         }
 
 

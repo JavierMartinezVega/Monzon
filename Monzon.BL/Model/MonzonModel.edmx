@@ -23,12 +23,43 @@
           <Property Name="PASSWORD" Type="varchar" MaxLength="100" />
           <Property Name="ACTIVE" Type="bit" Nullable="false" />
           <Property Name="ID_PROFILE" Type="int" Nullable="false" />
-          <Property Name="ID_CULTURE" Type="int" Nullable="false" />
           <Property Name="FIRST_NAME" Type="varchar" MaxLength="50" />
           <Property Name="LAST_NAME" Type="varchar" MaxLength="50" />
           <Property Name="EUID_HASH" Type="nvarchar" MaxLength="36" Nullable="false" />
           <Property Name="EMAIL" Type="varchar" MaxLength="50" />
           <Property Name="PHONE" Type="varchar" MaxLength="50" />
+        </EntityType>
+        <!--Errores durante la generación:
+advertencia 6002: La tabla o vista 'MONZON.dbo.MESSAGE' no tiene definida ninguna clave principal. Se ha inferido la clave y la definición se creado como una vista o tabla de solo lectura.-->
+        <EntityType Name="MESSAGE">
+          <Key>
+            <PropertyRef Name="USER_FROM_ID" />
+            <PropertyRef Name="USER_TO_ID" />
+            <PropertyRef Name="SUBJECT" />
+            <PropertyRef Name="TEXT" />
+            <PropertyRef Name="MESSAGE_DATE" />
+          </Key>
+          <Property Name="USER_FROM_ID" Type="int" Nullable="false" />
+          <Property Name="USER_TO_ID" Type="int" Nullable="false" />
+          <Property Name="SUBJECT" Type="nchar" MaxLength="100" Nullable="false" />
+          <Property Name="TEXT" Type="nvarchar(max)" Nullable="false" />
+          <Property Name="MESSAGE_DATE" Type="datetime" Nullable="false" />
+        </EntityType>
+        <!--Errores durante la generación:
+advertencia 6002: La tabla o vista 'MONZON.dbo.POST' no tiene definida ninguna clave principal. Se ha inferido la clave y la definición se creado como una vista o tabla de solo lectura.-->
+        <EntityType Name="POST">
+          <Key>
+            <PropertyRef Name="UNIQUE_ID" />
+            <PropertyRef Name="TITLE" />
+            <PropertyRef Name="URL" />
+            <PropertyRef Name="TEXT" />
+            <PropertyRef Name="POST_DATE" />
+          </Key>
+          <Property Name="UNIQUE_ID" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="TITLE" Type="varchar" MaxLength="100" Nullable="false" />
+          <Property Name="URL" Type="varchar" MaxLength="100" Nullable="false" />
+          <Property Name="TEXT" Type="varchar(max)" Nullable="false" />
+          <Property Name="POST_DATE" Type="datetime" Nullable="false" />
         </EntityType>
         <EntityType Name="PROFILE">
           <Key>
@@ -39,21 +70,66 @@
           <Property Name="ACTIVE" Type="bit" Nullable="false" />
           <Property Name="BIZ_ID" Type="nvarchar" MaxLength="36" Nullable="false" />
         </EntityType>
+        <Association Name="FK_LOGIN_PROFILE">
+          <End Role="PROFILE" Type="Self.PROFILE" Multiplicity="1" />
+          <End Role="LOGIN" Type="Self.LOGIN" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="PROFILE">
+              <PropertyRef Name="UNIQUE_ID" />
+            </Principal>
+            <Dependent Role="LOGIN">
+              <PropertyRef Name="ID_PROFILE" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
         <EntityContainer Name="MonzonModelStoreContainer">
           <EntitySet Name="CULTURE" EntityType="Self.CULTURE" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="LOGIN" EntityType="Self.LOGIN" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="PROFILE" EntityType="Self.PROFILE" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="MESSAGE" EntityType="Self.MESSAGE" store:Type="Tables" store:Schema="dbo">
+            <DefiningQuery>SELECT 
+    [MESSAGE].[USER_FROM_ID] AS [USER_FROM_ID], 
+    [MESSAGE].[USER_TO_ID] AS [USER_TO_ID], 
+    [MESSAGE].[SUBJECT] AS [SUBJECT], 
+    [MESSAGE].[TEXT] AS [TEXT], 
+    [MESSAGE].[MESSAGE_DATE] AS [MESSAGE_DATE]
+    FROM [dbo].[MESSAGE] AS [MESSAGE]</DefiningQuery>
+          </EntitySet>
+          <EntitySet Name="POST" EntityType="Self.POST" store:Type="Tables" store:Schema="dbo">
+            <DefiningQuery>SELECT 
+    [POST].[UNIQUE_ID] AS [UNIQUE_ID], 
+    [POST].[TITLE] AS [TITLE], 
+    [POST].[URL] AS [URL], 
+    [POST].[TEXT] AS [TEXT], 
+    [POST].[POST_DATE] AS [POST_DATE]
+    FROM [dbo].[POST] AS [POST]</DefiningQuery>
+          </EntitySet>
+          <AssociationSet Name="FK_LOGIN_PROFILE" Association="Self.FK_LOGIN_PROFILE">
+            <End Role="PROFILE" EntitySet="PROFILE" />
+            <End Role="LOGIN" EntitySet="LOGIN" />
+          </AssociationSet>
         </EntityContainer>
       </Schema></edmx:StorageModels>
     <!-- CSDL content -->
     <edmx:ConceptualModels>
       <Schema Namespace="MonzonModel" Alias="Self" annotation:UseStrongSpatialTypes="false" xmlns:annotation="http://schemas.microsoft.com/ado/2009/02/edm/annotation" xmlns:customannotation="http://schemas.microsoft.com/ado/2013/11/edm/customannotation" xmlns="http://schemas.microsoft.com/ado/2009/11/edm">
+        <EntityContainer Name="MonzonEntities" annotation:LazyLoadingEnabled="true">
+          <EntitySet Name="CULTURE" EntityType="MonzonModel.CULTURE" />
+          <EntitySet Name="LOGIN" EntityType="MonzonModel.LOGIN" />
+          <EntitySet Name="PROFILE" EntityType="MonzonModel.PROFILE" />
+          <EntitySet Name="MESSAGE" EntityType="MonzonModel.MESSAGE" />
+          <AssociationSet Name="FK_LOGIN_PROFILE" Association="MonzonModel.FK_LOGIN_PROFILE">
+            <End Role="PROFILE" EntitySet="PROFILE" />
+            <End Role="LOGIN" EntitySet="LOGIN" />
+          </AssociationSet>
+          <EntitySet Name="POST" EntityType="MonzonModel.POST" />
+        </EntityContainer>
         <EntityType Name="CULTURE">
           <Key>
             <PropertyRef Name="UNIQUE_ID" />
           </Key>
           <Property Name="UNIQUE_ID" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
-          <Property Name="CODE" Type="String" MaxLength="10" FixedLength="false" Unicode="false" Nullable="false" />
+          <Property Name="CODE" Type="String" Nullable="false" MaxLength="10" FixedLength="false" Unicode="false" />
           <Property Name="CAPTION" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
           <Property Name="DESCRIPTION" Type="String" MaxLength="255" FixedLength="false" Unicode="false" />
         </EntityType>
@@ -62,16 +138,16 @@
             <PropertyRef Name="UNIQUE_ID" />
           </Key>
           <Property Name="UNIQUE_ID" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
-          <Property Name="LOGIN1" Type="String" MaxLength="10" FixedLength="false" Unicode="false" Nullable="false" />
+          <Property Name="LOGIN1" Type="String" Nullable="false" MaxLength="10" FixedLength="false" Unicode="false" />
           <Property Name="PASSWORD" Type="String" MaxLength="100" FixedLength="false" Unicode="false" />
           <Property Name="ACTIVE" Type="Boolean" Nullable="false" />
           <Property Name="ID_PROFILE" Type="Int32" Nullable="false" />
-          <Property Name="ID_CULTURE" Type="Int32" Nullable="false" />
           <Property Name="FIRST_NAME" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
           <Property Name="LAST_NAME" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
-          <Property Name="EUID_HASH" Type="String" MaxLength="36" FixedLength="false" Unicode="true" Nullable="false" />
+          <Property Name="EUID_HASH" Type="String" Nullable="false" MaxLength="36" FixedLength="false" Unicode="true" />
           <Property Name="EMAIL" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
           <Property Name="PHONE" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
+          <NavigationProperty Name="PROFILE" Relationship="MonzonModel.FK_LOGIN_PROFILE" FromRole="LOGIN" ToRole="PROFILE" />
         </EntityType>
         <EntityType Name="PROFILE">
           <Key>
@@ -80,13 +156,49 @@
           <Property Name="UNIQUE_ID" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
           <Property Name="CAPTION" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
           <Property Name="ACTIVE" Type="Boolean" Nullable="false" />
-          <Property Name="BIZ_ID" Type="String" MaxLength="36" FixedLength="false" Unicode="true" Nullable="false" />
+          <Property Name="BIZ_ID" Type="String" Nullable="false" MaxLength="36" FixedLength="false" Unicode="true" />
+          <NavigationProperty Name="LOGIN" Relationship="MonzonModel.FK_LOGIN_PROFILE" FromRole="PROFILE" ToRole="LOGIN" />
         </EntityType>
-        <EntityContainer Name="MonzonEntities" annotation:LazyLoadingEnabled="true">
-          <EntitySet Name="CULTURE" EntityType="Self.CULTURE" />
-          <EntitySet Name="LOGIN" EntityType="Self.LOGIN" />
-          <EntitySet Name="PROFILE" EntityType="Self.PROFILE" />
-        </EntityContainer>
+        <EntityType Name="MESSAGE">
+          <Key>
+            <PropertyRef Name="USER_FROM_ID" />
+            <PropertyRef Name="USER_TO_ID" />
+            <PropertyRef Name="SUBJECT" />
+            <PropertyRef Name="TEXT" />
+            <PropertyRef Name="MESSAGE_DATE" />
+          </Key>
+          <Property Name="USER_FROM_ID" Type="Int32" Nullable="false" />
+          <Property Name="USER_TO_ID" Type="Int32" Nullable="false" />
+          <Property Name="SUBJECT" Type="String" Nullable="false" MaxLength="100" FixedLength="true" Unicode="true" />
+          <Property Name="TEXT" Type="String" Nullable="false" MaxLength="Max" FixedLength="false" Unicode="true" />
+          <Property Name="MESSAGE_DATE" Type="DateTime" Nullable="false" Precision="3" />
+        </EntityType>
+        <Association Name="FK_LOGIN_PROFILE">
+          <End Type="MonzonModel.PROFILE" Role="PROFILE" Multiplicity="1" />
+          <End Type="MonzonModel.LOGIN" Role="LOGIN" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="PROFILE">
+              <PropertyRef Name="UNIQUE_ID" />
+            </Principal>
+            <Dependent Role="LOGIN">
+              <PropertyRef Name="ID_PROFILE" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <EntityType Name="POST">
+          <Key>
+            <PropertyRef Name="UNIQUE_ID" />
+            <PropertyRef Name="TITLE" />
+            <PropertyRef Name="URL" />
+            <PropertyRef Name="TEXT" />
+            <PropertyRef Name="POST_DATE" />
+          </Key>
+          <Property Name="UNIQUE_ID" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="TITLE" Type="String" Nullable="false" MaxLength="100" FixedLength="false" Unicode="false" />
+          <Property Name="URL" Type="String" Nullable="false" MaxLength="100" FixedLength="false" Unicode="false" />
+          <Property Name="TEXT" Type="String" Nullable="false" MaxLength="Max" FixedLength="false" Unicode="false" />
+          <Property Name="POST_DATE" Type="DateTime" Nullable="false" Precision="3" />
+        </EntityType>
       </Schema>
     </edmx:ConceptualModels>
     <!-- C-S mapping content -->
@@ -96,10 +208,10 @@
           <EntitySetMapping Name="CULTURE">
             <EntityTypeMapping TypeName="MonzonModel.CULTURE">
               <MappingFragment StoreEntitySet="CULTURE">
-                <ScalarProperty Name="UNIQUE_ID" ColumnName="UNIQUE_ID" />
-                <ScalarProperty Name="CODE" ColumnName="CODE" />
-                <ScalarProperty Name="CAPTION" ColumnName="CAPTION" />
                 <ScalarProperty Name="DESCRIPTION" ColumnName="DESCRIPTION" />
+                <ScalarProperty Name="CAPTION" ColumnName="CAPTION" />
+                <ScalarProperty Name="CODE" ColumnName="CODE" />
+                <ScalarProperty Name="UNIQUE_ID" ColumnName="UNIQUE_ID" />
               </MappingFragment>
             </EntityTypeMapping>
           </EntitySetMapping>
@@ -108,25 +220,46 @@
               <MappingFragment StoreEntitySet="LOGIN">
                 <ScalarProperty Name="PHONE" ColumnName="PHONE" />
                 <ScalarProperty Name="EMAIL" ColumnName="EMAIL" />
-                <ScalarProperty Name="UNIQUE_ID" ColumnName="UNIQUE_ID" />
-                <ScalarProperty Name="LOGIN1" ColumnName="LOGIN" />
-                <ScalarProperty Name="PASSWORD" ColumnName="PASSWORD" />
-                <ScalarProperty Name="ACTIVE" ColumnName="ACTIVE" />
-                <ScalarProperty Name="ID_PROFILE" ColumnName="ID_PROFILE" />
-                <ScalarProperty Name="ID_CULTURE" ColumnName="ID_CULTURE" />
-                <ScalarProperty Name="FIRST_NAME" ColumnName="FIRST_NAME" />
-                <ScalarProperty Name="LAST_NAME" ColumnName="LAST_NAME" />
                 <ScalarProperty Name="EUID_HASH" ColumnName="EUID_HASH" />
+                <ScalarProperty Name="LAST_NAME" ColumnName="LAST_NAME" />
+                <ScalarProperty Name="FIRST_NAME" ColumnName="FIRST_NAME" />
+                <ScalarProperty Name="ID_PROFILE" ColumnName="ID_PROFILE" />
+                <ScalarProperty Name="ACTIVE" ColumnName="ACTIVE" />
+                <ScalarProperty Name="PASSWORD" ColumnName="PASSWORD" />
+                <ScalarProperty Name="LOGIN1" ColumnName="LOGIN" />
+                <ScalarProperty Name="UNIQUE_ID" ColumnName="UNIQUE_ID" />
               </MappingFragment>
             </EntityTypeMapping>
           </EntitySetMapping>
           <EntitySetMapping Name="PROFILE">
             <EntityTypeMapping TypeName="MonzonModel.PROFILE">
               <MappingFragment StoreEntitySet="PROFILE">
-                <ScalarProperty Name="UNIQUE_ID" ColumnName="UNIQUE_ID" />
-                <ScalarProperty Name="CAPTION" ColumnName="CAPTION" />
-                <ScalarProperty Name="ACTIVE" ColumnName="ACTIVE" />
                 <ScalarProperty Name="BIZ_ID" ColumnName="BIZ_ID" />
+                <ScalarProperty Name="ACTIVE" ColumnName="ACTIVE" />
+                <ScalarProperty Name="CAPTION" ColumnName="CAPTION" />
+                <ScalarProperty Name="UNIQUE_ID" ColumnName="UNIQUE_ID" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="MESSAGE">
+            <EntityTypeMapping TypeName="MonzonModel.MESSAGE">
+              <MappingFragment StoreEntitySet="MESSAGE">
+                <ScalarProperty Name="MESSAGE_DATE" ColumnName="MESSAGE_DATE" />
+                <ScalarProperty Name="TEXT" ColumnName="TEXT" />
+                <ScalarProperty Name="SUBJECT" ColumnName="SUBJECT" />
+                <ScalarProperty Name="USER_TO_ID" ColumnName="USER_TO_ID" />
+                <ScalarProperty Name="USER_FROM_ID" ColumnName="USER_FROM_ID" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="POST">
+            <EntityTypeMapping TypeName="MonzonModel.POST">
+              <MappingFragment StoreEntitySet="POST">
+                <ScalarProperty Name="POST_DATE" ColumnName="POST_DATE" />
+                <ScalarProperty Name="TEXT" ColumnName="TEXT" />
+                <ScalarProperty Name="URL" ColumnName="URL" />
+                <ScalarProperty Name="TITLE" ColumnName="TITLE" />
+                <ScalarProperty Name="UNIQUE_ID" ColumnName="UNIQUE_ID" />
               </MappingFragment>
             </EntityTypeMapping>
           </EntitySetMapping>

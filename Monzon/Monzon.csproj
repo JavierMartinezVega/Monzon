@@ -90,6 +90,9 @@
   </ItemGroup>
   <ItemGroup>
     <Content Include="Global.asax" />
+    <Content Include="Pages\EditPost.aspx" />
+    <Content Include="Pages\NewPost.aspx" />
+    <Content Include="Pages\PostList.aspx" />
     <Content Include="Pages\Post.aspx" />
     <Content Include="Pages\PasswordRecovery.aspx" />
     <Content Include="Pages\Register.aspx" />
@@ -119,6 +122,27 @@
     </Compile>
     <Compile Include="MasterPages\Monzon.Master.designer.cs">
       <DependentUpon>Monzon.Master</DependentUpon>
+    </Compile>
+    <Compile Include="Pages\EditPost.aspx.cs">
+      <DependentUpon>EditPost.aspx</DependentUpon>
+      <SubType>ASPXCodeBehind</SubType>
+    </Compile>
+    <Compile Include="Pages\EditPost.aspx.designer.cs">
+      <DependentUpon>EditPost.aspx</DependentUpon>
+    </Compile>
+    <Compile Include="Pages\NewPost.aspx.cs">
+      <DependentUpon>NewPost.aspx</DependentUpon>
+      <SubType>ASPXCodeBehind</SubType>
+    </Compile>
+    <Compile Include="Pages\NewPost.aspx.designer.cs">
+      <DependentUpon>NewPost.aspx</DependentUpon>
+    </Compile>
+    <Compile Include="Pages\PostList.aspx.cs">
+      <DependentUpon>PostList.aspx</DependentUpon>
+      <SubType>ASPXCodeBehind</SubType>
+    </Compile>
+    <Compile Include="Pages\PostList.aspx.designer.cs">
+      <DependentUpon>PostList.aspx</DependentUpon>
     </Compile>
     <Compile Include="Pages\Post.aspx.cs">
       <DependentUpon>Post.aspx</DependentUpon>
@@ -226,6 +250,7 @@
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />
+    <Folder Include="Images\Post\" />
     <Folder Include="Models\" />
     <Folder Include="Pages\Admin\" />
   </ItemGroup>

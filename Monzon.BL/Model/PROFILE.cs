@@ -14,9 +14,18 @@ namespace Monzon.BL.Model
     
     public partial class PROFILE
     {
+        [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2214:DoNotCallOverridableMethodsInConstructors")]
+        public PROFILE()
+        {
+            this.LOGIN = new HashSet<LOGIN>();
+        }
+    
         public int UNIQUE_ID { get; set; }
         public string CAPTION { get; set; }
         public bool ACTIVE { get; set; }
         public string BIZ_ID { get; set; }
+    
+        [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
+        public virtual ICollection<LOGIN> LOGIN { get; set; }
     }
 }

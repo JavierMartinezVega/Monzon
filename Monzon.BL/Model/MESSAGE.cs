@@ -12,19 +12,12 @@ namespace Monzon.BL.Model
     using System;
     using System.Collections.Generic;
     
-    public partial class LOGIN
+    public partial class MESSAGE
     {
-        public int UNIQUE_ID { get; set; }
-        public string LOGIN1 { get; set; }
-        public string PASSWORD { get; set; }
-        public bool ACTIVE { get; set; }
-        public int ID_PROFILE { get; set; }
-        public string FIRST_NAME { get; set; }
-        public string LAST_NAME { get; set; }
-        public string EUID_HASH { get; set; }
-        public string EMAIL { get; set; }
-        public string PHONE { get; set; }
-    
-        public virtual PROFILE PROFILE { get; set; }
+        public int USER_FROM_ID { get; set; }
+        public int USER_TO_ID { get; set; }
+        public string SUBJECT { get; set; }
+        public string TEXT { get; set; }
+        public System.DateTime MESSAGE_DATE { get; set; }
     }
 }

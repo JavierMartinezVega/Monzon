@@ -28,5 +28,7 @@ namespace Monzon.BL.Model
         public virtual DbSet<CULTURE> CULTURE { get; set; }
         public virtual DbSet<LOGIN> LOGIN { get; set; }
         public virtual DbSet<PROFILE> PROFILE { get; set; }
+        public virtual DbSet<MESSAGE> MESSAGE { get; set; }
+        public virtual DbSet<POST> POST { get; set; }
     }
 }

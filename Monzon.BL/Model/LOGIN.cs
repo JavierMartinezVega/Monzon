@@ -24,6 +24,8 @@ namespace Monzon.BL.Model
         public string EUID_HASH { get; set; }
         public string EMAIL { get; set; }
         public string PHONE { get; set; }
+        public Nullable<int> X { get; set; }
+        public Nullable<int> Y { get; set; }
     
         public virtual PROFILE PROFILE { get; set; }
     }

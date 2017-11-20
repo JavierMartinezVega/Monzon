@@ -184,6 +184,15 @@ namespace Monzon.MasterPages {
         protected global::System.Web.UI.WebControls.Button btnProfile2;
         
         /// <summary>
+        /// Control btnMap.
+        /// </summary>
+        /// <remarks>
+        /// Campo generado automáticamente.
+        /// Para modificarlo, mueva la declaración del campo del archivo del diseñador al archivo de código subyacente.
+        /// </remarks>
+        protected global::System.Web.UI.WebControls.Button btnMap;
+        
+        /// <summary>
         /// Control btnContact2.
         /// </summary>
         /// <remarks>

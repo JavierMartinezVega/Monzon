@@ -294,6 +294,7 @@
                     <li><asp:Button runat="server" text="The Guild" ID="btnGuild2" OnClick="btnGuild_Click"></asp:Button></li>
                     <li><asp:Button runat="server" text="Blog" ID="btnCartanica2" OnClick="btnCartanica_Click"></asp:Button></li>
                     <li><asp:Button runat="server" text="My Account" ID="btnProfile2" OnClick="btnProfile_Click"></asp:Button></li>
+                    <li><asp:Button runat="server" text="Map" ID="btnMap" OnClick="btnMap_Click"></asp:Button></li>
                     <li><asp:Button runat="server" text="Contact" ID="btnContact2" OnClick="btnContact_Click"></asp:Button></li>
                 </ul>
             </asp:Panel>

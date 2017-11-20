@@ -1,6 +1,7 @@
 ﻿
 namespace Monzon.BL.Repository
 {
+    using System.Collections.Generic;
     using System.Transactions;
     using System.Linq;
     using Model;
@@ -53,6 +54,14 @@ namespace Monzon.BL.Repository
                 ts.Complete();
 
                 return true;
+            }
+        }
+
+        public List<LOGIN> GetMembers()
+        {
+            using (var db = new MonzonEntities())
+            {
+                return db.LOGIN.Where(l => l.PROFILE.BIZ_ID != "PUB").ToList();
             }
         }
     }

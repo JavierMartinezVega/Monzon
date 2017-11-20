@@ -68,6 +68,11 @@ namespace Monzon.MasterPages
             Response.Redirect("Profile.aspx");
         }
 
+        protected void btnMap_Click(object sender, EventArgs e)
+        {
+            Response.Redirect("Map.aspx");
+        }
+
         protected void btnGuild_Click(object sender, EventArgs e)
         {
             Response.Redirect("Guild.aspx");

@@ -13,15 +13,15 @@ namespace Monzon.MasterPages
             if (user != null)
             {
                 txtLUser.Text = user.FIRST_NAME + " " + user.LAST_NAME;
-                menuPublic.Visible = false;
-                menuLogged.Visible = true;
+                //menuPublic.Visible = false;
+                //menuLogged.Visible = true;
                 pnlUser.Visible = true;
                 pnlAcceso.Visible = false;
             }
             else
             {
-                menuPublic.Visible = true;
-                menuLogged.Visible = false;
+                //menuPublic.Visible = true;
+                //menuLogged.Visible = false;
                 pnlUser.Visible = false;
                 pnlAcceso.Visible = true;
             }
@@ -31,7 +31,17 @@ namespace Monzon.MasterPages
         {
             Response.Redirect("Index.aspx");
         }
-        
+
+        protected void btnMenu_Click(object sender, EventArgs e)
+        {
+            if (this.pnlMenu2.Visible)
+                this.pnlMenu2.Visible = false;
+            else
+            {
+                this.pnlMenu2.Visible = true;
+            }
+        }
+
         protected void Unnamed1_Click(object sender, EventArgs e)
         {
             pnlLogin.Visible = !pnlLogin.Visible;

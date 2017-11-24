@@ -5,15 +5,6 @@
     <!-- SSDL content -->
     <edmx:StorageModels>
     <Schema Namespace="MonzonModel.Store" Provider="System.Data.SqlClient" ProviderManifestToken="2012" Alias="Self" xmlns:store="http://schemas.microsoft.com/ado/2007/12/edm/EntityStoreSchemaGenerator" xmlns:customannotation="http://schemas.microsoft.com/ado/2013/11/edm/customannotation" xmlns="http://schemas.microsoft.com/ado/2009/11/edm/ssdl">
-        <EntityType Name="CULTURE">
-          <Key>
-            <PropertyRef Name="UNIQUE_ID" />
-          </Key>
-          <Property Name="UNIQUE_ID" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
-          <Property Name="CODE" Type="varchar" MaxLength="10" Nullable="false" />
-          <Property Name="CAPTION" Type="varchar" MaxLength="50" />
-          <Property Name="DESCRIPTION" Type="varchar" MaxLength="255" />
-        </EntityType>
         <EntityType Name="LOGIN">
           <Key>
             <PropertyRef Name="UNIQUE_ID" />
@@ -30,6 +21,7 @@
           <Property Name="PHONE" Type="varchar" MaxLength="50" />
           <Property Name="X" Type="int" />
           <Property Name="Y" Type="int" />
+          <Property Name="HIVE" Type="bit" Nullable="false" />
         </EntityType>
         <!--Errores durante la generación:
 advertencia 6002: La tabla o vista 'MONZON.dbo.MESSAGE' no tiene definida ninguna clave principal. Se ha inferido la clave y la definición se creado como una vista o tabla de solo lectura.-->
@@ -46,6 +38,23 @@ advertencia 6002: La tabla o vista 'MONZON.dbo.MESSAGE' no tiene definida ningun
           <Property Name="SUBJECT" Type="nchar" MaxLength="100" Nullable="false" />
           <Property Name="TEXT" Type="nvarchar(max)" Nullable="false" />
           <Property Name="MESSAGE_DATE" Type="datetime" Nullable="false" />
+        </EntityType>
+        <!--Errores durante la generación:
+advertencia 6002: La tabla o vista 'MONZON.dbo.PLACE' no tiene definida ninguna clave principal. Se ha inferido la clave y la definición se creado como una vista o tabla de solo lectura.-->
+        <EntityType Name="PLACE">
+          <Key>
+            <PropertyRef Name="UNIQUE_ID" />
+            <PropertyRef Name="NAME" />
+            <PropertyRef Name="X" />
+            <PropertyRef Name="Y" />
+            <PropertyRef Name="DELETED" />
+          </Key>
+          <Property Name="UNIQUE_ID" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="NAME" Type="nvarchar" MaxLength="100" Nullable="false" />
+          <Property Name="X" Type="int" Nullable="false" />
+          <Property Name="Y" Type="int" Nullable="false" />
+          <Property Name="SUBTITLE" Type="nvarchar" MaxLength="100" />
+          <Property Name="DELETED" Type="bit" Nullable="false" />
         </EntityType>
         <!--Errores durante la generación:
 advertencia 6002: La tabla o vista 'MONZON.dbo.POST' no tiene definida ninguna clave principal. Se ha inferido la clave y la definición se creado como una vista o tabla de solo lectura.-->
@@ -85,7 +94,6 @@ advertencia 6002: La tabla o vista 'MONZON.dbo.POST' no tiene definida ninguna c
           </ReferentialConstraint>
         </Association>
         <EntityContainer Name="MonzonModelStoreContainer">
-          <EntitySet Name="CULTURE" EntityType="Self.CULTURE" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="LOGIN" EntityType="Self.LOGIN" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="PROFILE" EntityType="Self.PROFILE" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="MESSAGE" EntityType="Self.MESSAGE" store:Type="Tables" store:Schema="dbo">
@@ -96,6 +104,16 @@ advertencia 6002: La tabla o vista 'MONZON.dbo.POST' no tiene definida ninguna c
     [MESSAGE].[TEXT] AS [TEXT], 
     [MESSAGE].[MESSAGE_DATE] AS [MESSAGE_DATE]
     FROM [dbo].[MESSAGE] AS [MESSAGE]</DefiningQuery>
+          </EntitySet>
+          <EntitySet Name="PLACE" EntityType="Self.PLACE" store:Type="Tables" store:Schema="dbo">
+            <DefiningQuery>SELECT 
+    [PLACE].[UNIQUE_ID] AS [UNIQUE_ID], 
+    [PLACE].[NAME] AS [NAME], 
+    [PLACE].[X] AS [X], 
+    [PLACE].[Y] AS [Y], 
+    [PLACE].[SUBTITLE] AS [SUBTITLE], 
+    [PLACE].[DELETED] AS [DELETED]
+    FROM [dbo].[PLACE] AS [PLACE]</DefiningQuery>
           </EntitySet>
           <EntitySet Name="POST" EntityType="Self.POST" store:Type="Tables" store:Schema="dbo">
             <DefiningQuery>SELECT 
@@ -116,25 +134,16 @@ advertencia 6002: La tabla o vista 'MONZON.dbo.POST' no tiene definida ninguna c
     <edmx:ConceptualModels>
       <Schema Namespace="MonzonModel" Alias="Self" annotation:UseStrongSpatialTypes="false" xmlns:annotation="http://schemas.microsoft.com/ado/2009/02/edm/annotation" xmlns:customannotation="http://schemas.microsoft.com/ado/2013/11/edm/customannotation" xmlns="http://schemas.microsoft.com/ado/2009/11/edm">
         <EntityContainer Name="MonzonEntities" annotation:LazyLoadingEnabled="true">
-          <EntitySet Name="CULTURE" EntityType="MonzonModel.CULTURE" />
           <EntitySet Name="LOGIN" EntityType="MonzonModel.LOGIN" />
           <EntitySet Name="PROFILE" EntityType="MonzonModel.PROFILE" />
           <EntitySet Name="MESSAGE" EntityType="MonzonModel.MESSAGE" />
+          <EntitySet Name="PLACE" EntityType="MonzonModel.PLACE" />
+          <EntitySet Name="POST" EntityType="MonzonModel.POST" />
           <AssociationSet Name="FK_LOGIN_PROFILE" Association="MonzonModel.FK_LOGIN_PROFILE">
             <End Role="PROFILE" EntitySet="PROFILE" />
             <End Role="LOGIN" EntitySet="LOGIN" />
           </AssociationSet>
-          <EntitySet Name="POST" EntityType="MonzonModel.POST" />
         </EntityContainer>
-        <EntityType Name="CULTURE">
-          <Key>
-            <PropertyRef Name="UNIQUE_ID" />
-          </Key>
-          <Property Name="UNIQUE_ID" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
-          <Property Name="CODE" Type="String" Nullable="false" MaxLength="10" FixedLength="false" Unicode="false" />
-          <Property Name="CAPTION" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
-          <Property Name="DESCRIPTION" Type="String" MaxLength="255" FixedLength="false" Unicode="false" />
-        </EntityType>
         <EntityType Name="LOGIN">
           <Key>
             <PropertyRef Name="UNIQUE_ID" />
@@ -149,9 +158,10 @@ advertencia 6002: La tabla o vista 'MONZON.dbo.POST' no tiene definida ninguna c
           <Property Name="EUID_HASH" Type="String" Nullable="false" MaxLength="36" FixedLength="false" Unicode="true" />
           <Property Name="EMAIL" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
           <Property Name="PHONE" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
-          <NavigationProperty Name="PROFILE" Relationship="MonzonModel.FK_LOGIN_PROFILE" FromRole="LOGIN" ToRole="PROFILE" />
           <Property Name="X" Type="Int32" />
           <Property Name="Y" Type="Int32" />
+          <Property Name="HIVE" Type="Boolean" Nullable="false" />
+          <NavigationProperty Name="PROFILE" Relationship="MonzonModel.FK_LOGIN_PROFILE" FromRole="LOGIN" ToRole="PROFILE" />
         </EntityType>
         <EntityType Name="PROFILE">
           <Key>
@@ -177,18 +187,21 @@ advertencia 6002: La tabla o vista 'MONZON.dbo.POST' no tiene definida ninguna c
           <Property Name="TEXT" Type="String" Nullable="false" MaxLength="Max" FixedLength="false" Unicode="true" />
           <Property Name="MESSAGE_DATE" Type="DateTime" Nullable="false" Precision="3" />
         </EntityType>
-        <Association Name="FK_LOGIN_PROFILE">
-          <End Type="MonzonModel.PROFILE" Role="PROFILE" Multiplicity="1" />
-          <End Type="MonzonModel.LOGIN" Role="LOGIN" Multiplicity="*" />
-          <ReferentialConstraint>
-            <Principal Role="PROFILE">
-              <PropertyRef Name="UNIQUE_ID" />
-            </Principal>
-            <Dependent Role="LOGIN">
-              <PropertyRef Name="ID_PROFILE" />
-            </Dependent>
-          </ReferentialConstraint>
-        </Association>
+        <EntityType Name="PLACE">
+          <Key>
+            <PropertyRef Name="UNIQUE_ID" />
+            <PropertyRef Name="NAME" />
+            <PropertyRef Name="X" />
+            <PropertyRef Name="Y" />
+            <PropertyRef Name="DELETED" />
+          </Key>
+          <Property Name="UNIQUE_ID" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="NAME" Type="String" Nullable="false" MaxLength="100" FixedLength="false" Unicode="true" />
+          <Property Name="X" Type="Int32" Nullable="false" />
+          <Property Name="Y" Type="Int32" Nullable="false" />
+          <Property Name="SUBTITLE" Type="String" MaxLength="100" FixedLength="false" Unicode="true" />
+          <Property Name="DELETED" Type="Boolean" Nullable="false" />
+        </EntityType>
         <EntityType Name="POST">
           <Key>
             <PropertyRef Name="UNIQUE_ID" />
@@ -203,25 +216,28 @@ advertencia 6002: La tabla o vista 'MONZON.dbo.POST' no tiene definida ninguna c
           <Property Name="TEXT" Type="String" Nullable="false" MaxLength="Max" FixedLength="false" Unicode="false" />
           <Property Name="POST_DATE" Type="DateTime" Nullable="false" Precision="3" />
         </EntityType>
-      </Schema>
+        <Association Name="FK_LOGIN_PROFILE">
+          <End Type="MonzonModel.PROFILE" Role="PROFILE" Multiplicity="1" />
+          <End Type="MonzonModel.LOGIN" Role="LOGIN" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="PROFILE">
+              <PropertyRef Name="UNIQUE_ID" />
+            </Principal>
+            <Dependent Role="LOGIN">
+              <PropertyRef Name="ID_PROFILE" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        </Schema>
     </edmx:ConceptualModels>
     <!-- C-S mapping content -->
     <edmx:Mappings>
       <Mapping Space="C-S" xmlns="http://schemas.microsoft.com/ado/2009/11/mapping/cs">
         <EntityContainerMapping StorageEntityContainer="MonzonModelStoreContainer" CdmEntityContainer="MonzonEntities">
-          <EntitySetMapping Name="CULTURE">
-            <EntityTypeMapping TypeName="MonzonModel.CULTURE">
-              <MappingFragment StoreEntitySet="CULTURE">
-                <ScalarProperty Name="DESCRIPTION" ColumnName="DESCRIPTION" />
-                <ScalarProperty Name="CAPTION" ColumnName="CAPTION" />
-                <ScalarProperty Name="CODE" ColumnName="CODE" />
-                <ScalarProperty Name="UNIQUE_ID" ColumnName="UNIQUE_ID" />
-              </MappingFragment>
-            </EntityTypeMapping>
-          </EntitySetMapping>
           <EntitySetMapping Name="LOGIN">
             <EntityTypeMapping TypeName="MonzonModel.LOGIN">
               <MappingFragment StoreEntitySet="LOGIN">
+                <ScalarProperty Name="HIVE" ColumnName="HIVE" />
                 <ScalarProperty Name="Y" ColumnName="Y" />
                 <ScalarProperty Name="X" ColumnName="X" />
                 <ScalarProperty Name="PHONE" ColumnName="PHONE" />
@@ -255,6 +271,18 @@ advertencia 6002: La tabla o vista 'MONZON.dbo.POST' no tiene definida ninguna c
                 <ScalarProperty Name="SUBJECT" ColumnName="SUBJECT" />
                 <ScalarProperty Name="USER_TO_ID" ColumnName="USER_TO_ID" />
                 <ScalarProperty Name="USER_FROM_ID" ColumnName="USER_FROM_ID" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="PLACE">
+            <EntityTypeMapping TypeName="MonzonModel.PLACE">
+              <MappingFragment StoreEntitySet="PLACE">
+                <ScalarProperty Name="DELETED" ColumnName="DELETED" />
+                <ScalarProperty Name="SUBTITLE" ColumnName="SUBTITLE" />
+                <ScalarProperty Name="Y" ColumnName="Y" />
+                <ScalarProperty Name="X" ColumnName="X" />
+                <ScalarProperty Name="NAME" ColumnName="NAME" />
+                <ScalarProperty Name="UNIQUE_ID" ColumnName="UNIQUE_ID" />
               </MappingFragment>
             </EntityTypeMapping>
           </EntitySetMapping>

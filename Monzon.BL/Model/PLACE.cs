@@ -12,11 +12,13 @@ namespace Monzon.BL.Model
     using System;
     using System.Collections.Generic;
     
-    public partial class CULTURE
+    public partial class PLACE
     {
         public int UNIQUE_ID { get; set; }
-        public string CODE { get; set; }
-        public string CAPTION { get; set; }
-        public string DESCRIPTION { get; set; }
+        public string NAME { get; set; }
+        public int X { get; set; }
+        public int Y { get; set; }
+        public string SUBTITLE { get; set; }
+        public bool DELETED { get; set; }
     }
 }

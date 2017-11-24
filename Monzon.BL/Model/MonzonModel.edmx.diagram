@@ -5,12 +5,12 @@
     <!-- Diagram content (shape and connector positions) -->
     <edmx:Diagrams>
       <Diagram DiagramId="0dd9c4b3a89442428d93947f32be3d4e" Name="Diagram1">
-        <EntityTypeShape EntityType="MonzonModel.CULTURE" Width="1.5" PointX="5.75" PointY="0.75" />
         <EntityTypeShape EntityType="MonzonModel.LOGIN" Width="1.5" PointX="3" PointY="1" />
-        <EntityTypeShape EntityType="MonzonModel.PROFILE" Width="1.5" PointX="0.75" PointY="1.5" />
-        <EntityTypeShape EntityType="MonzonModel.MESSAGE" Width="1.5" PointX="1.125" PointY="4.5" />
+        <EntityTypeShape EntityType="MonzonModel.PROFILE" Width="1.5" PointX="0.75" PointY="1.875" />
+        <EntityTypeShape EntityType="MonzonModel.MESSAGE" Width="1.5" PointX="5.75" PointY="0.75" />
+        <EntityTypeShape EntityType="MonzonModel.PLACE" Width="1.5" PointX="0.75" PointY="5.75" />
+        <EntityTypeShape EntityType="MonzonModel.POST" Width="1.5" PointX="2.75" PointY="5.75" />
         <AssociationConnector Association="MonzonModel.FK_LOGIN_PROFILE" />
-        <EntityTypeShape EntityType="MonzonModel.POST" Width="1.5" PointX="3.625" PointY="4.5" />
       </Diagram>
     </edmx:Diagrams>
   </edmx:Designer>

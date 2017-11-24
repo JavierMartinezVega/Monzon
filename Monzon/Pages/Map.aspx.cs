@@ -2,15 +2,10 @@
 namespace Monzon.Pages
 {
     using System;
-    using System.Collections.Generic;
-    using System.Data.Entity;
     using System.Drawing;
-    using System.Linq;
-    using System.Text.RegularExpressions;
     using System.Web.UI.WebControls;
     using BL.Model;
     using BL.Repository;
-    using Models;
 
     public partial class Map : System.Web.UI.Page
     {
@@ -21,6 +16,7 @@ namespace Monzon.Pages
                 if (user != null)
                 {
                     GetMembers();
+                    GetPlaces();
                 }
                 else
                 {
@@ -28,37 +24,47 @@ namespace Monzon.Pages
                 }
         }
 
-      
-
-
-        private List<MapMember> GetMembers()
+        private void GetMembers()
         {
             var members = LoginRepository.Instance.GetMembers();
-            var result = new List<MapMember>();
             this.pnlMap.Style.Add("position", "relative");
-
-            int i = 0;
 
             foreach (var member in members)
             {
-                Label boton = new Label {Width = member.LOGIN1.Length*10, Height = 10, Text = member.LOGIN1};
+                Label boton = new Label {Width = member.LOGIN1.Length*7, Height = 12, Text = "     " + member.LOGIN1};
+                boton.BorderColor = Color.White;
+                boton.BorderWidth = 1;
+                boton.Style.Add("text-align", "center");
                 boton.Style.Add("Position", "absolute");
                 boton.Style.Add("Top", member.X + "px");
                 boton.Style.Add("Left", member.Y + "px");
-                if (i == 0)
-                {
-                    boton.BackColor = Color.DarkGreen;
-                }
-                else
-                {
-                    boton.BackColor = Color.OrangeRed;
-                }
+                boton.BackColor = Color.SaddleBrown;
+                boton.ForeColor = Color.White;
                 boton.Font.Size = 8;
                 pnlMap.Controls.Add(boton);
-                i++;
             }
+        }
 
-            return result;
+        private void GetPlaces()
+        {
+            var places = PlaceRepository.Instance.GetPlaces();
+            this.pnlMap.Style.Add("position", "relative");
+
+            foreach (var member in places)
+            {
+                Label boton = new Label { Width = (member.SUBTITLE.Length + member.NAME.Length) * 5, Height = 12, Text = "     " + member.NAME + " " + member.SUBTITLE };
+                boton.BorderColor = Color.White;
+                boton.BorderWidth = 1;
+                boton.Style.Add("text-align", "center");
+                boton.BorderStyle = BorderStyle.Outset;
+                boton.Style.Add("Position", "absolute");
+                boton.Style.Add("Top", member.X + "px");
+                boton.Style.Add("Left", member.Y + "px");
+                boton.BackColor = Color.DarkBlue;
+                boton.ForeColor = Color.White;
+                boton.Font.Size = 8;
+                pnlMap.Controls.Add(boton);
+            }
         }
     }
 }

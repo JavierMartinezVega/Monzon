@@ -90,6 +90,11 @@
   </ItemGroup>
   <ItemGroup>
     <Content Include="Global.asax" />
+    <Content Include="Images\Map\Croma.jpg" />
+    <Content Include="Images\Map\Grass.jpg" />
+    <Content Include="Images\menu.svg" />
+    <Content Include="Images\Tigre.jpg" />
+    <Content Include="Pages\Place.aspx" />
     <Content Include="Pages\Map.aspx" />
     <Content Include="Pages\EditPost.aspx" />
     <Content Include="Pages\NewPost.aspx" />
@@ -125,6 +130,13 @@
       <DependentUpon>Monzon.Master</DependentUpon>
     </Compile>
     <Compile Include="Models\MapMember.cs" />
+    <Compile Include="Pages\Place.aspx.cs">
+      <DependentUpon>Place.aspx</DependentUpon>
+      <SubType>ASPXCodeBehind</SubType>
+    </Compile>
+    <Compile Include="Pages\Place.aspx.designer.cs">
+      <DependentUpon>Place.aspx</DependentUpon>
+    </Compile>
     <Compile Include="Pages\Map.aspx.cs">
       <DependentUpon>Map.aspx</DependentUpon>
       <SubType>ASPXCodeBehind</SubType>

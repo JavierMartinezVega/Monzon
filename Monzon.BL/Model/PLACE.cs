@@ -20,5 +20,6 @@ namespace Monzon.BL.Model
         public int Y { get; set; }
         public string SUBTITLE { get; set; }
         public bool DELETED { get; set; }
+        public Nullable<int> HIVE_ID { get; set; }
     }
 }

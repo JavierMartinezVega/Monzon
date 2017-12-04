@@ -4,6 +4,7 @@ namespace Monzon.BL.Repository
     using System.Collections.Generic;
     using System.Transactions;
     using System.Linq;
+    using System.Data.Entity;
     using Model;
     using System.Net.Mail;
 
@@ -30,7 +31,7 @@ namespace Monzon.BL.Repository
         {
             using (var db = new MonzonEntities())
             {
-                return db.LOGIN.FirstOrDefault(l => l.LOGIN1 == login.LOGIN1 && l.PASSWORD == login.PASSWORD);
+                return db.LOGIN.Include(l => l.PROFILE).FirstOrDefault(l => l.LOGIN1 == login.LOGIN1 && l.PASSWORD == login.PASSWORD);
             }
         }
 
@@ -62,6 +63,14 @@ namespace Monzon.BL.Repository
             using (var db = new MonzonEntities())
             {
                 return db.LOGIN.Where(l => l.PROFILE.BIZ_ID != "PUB").ToList();
+            }
+        }
+
+        public List<LOGIN> GethiveMembers(int hiveId)
+        {
+            using (var db = new MonzonEntities())
+            {
+                return db.LOGIN.Where(l => l.PROFILE.BIZ_ID != "PUB" && l.HIVE_ID == hiveId).ToList();
             }
         }
     }

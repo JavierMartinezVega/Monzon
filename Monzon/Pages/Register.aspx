@@ -10,22 +10,22 @@
             <asp:Panel runat="server" CssClass="contentItem" >
                 <asp:Label runat="server" ID="Label7">Username:</asp:Label>
                 <asp:TextBox runat="server" ID="txtUsername"></asp:TextBox>
-                <asp:Panel runat="server" ID="pnlUsernameError" Visible="false">You must specify a valid Username</asp:Panel>
+                <asp:Panel runat="server" ID="pnlUsernameError" Visible="false">You must specify a valid username</asp:Panel>
             </asp:Panel>
             <asp:Panel runat="server" CssClass="contentItem" >
                 <asp:Label runat="server" ID="Label3">Name:</asp:Label>
                 <asp:TextBox runat="server" ID="txtName"></asp:TextBox>
-                <asp:Panel runat="server" ID="pnlNameError" Visible="false">You must specify a valid Name</asp:Panel>
+                <asp:Panel runat="server" ID="pnlNameError" Visible="false">You must specify a valid name</asp:Panel>
             </asp:Panel>
               <asp:Panel runat="server" CssClass="contentItem" >
                 <asp:Label runat="server" ID="Label1">Surname:</asp:Label>
                 <asp:TextBox runat="server" ID="txtSurname"></asp:TextBox>
-                  <asp:Panel runat="server" ID="pnlSurnameError" Visible="false">You must specify a valid Surname</asp:Panel>
+                  <asp:Panel runat="server" ID="pnlSurnameError" Visible="false">You must specify a valid surname</asp:Panel>
             </asp:Panel>
             <asp:Panel runat="server" CssClass="contentItem">
                 <asp:Label runat="server" ID="Label4">Email:</asp:Label>
                 <asp:TextBox runat="server" ID="txtEmail"></asp:TextBox>
-                <asp:Panel runat="server" ID="pnlEmailError" Visible="false">You must specify a valid Email</asp:Panel>
+                <asp:Panel runat="server" ID="pnlEmailError" Visible="false">You must specify a valid email</asp:Panel>
             </asp:Panel>
             <asp:Panel runat="server" CssClass="contentItem">
                 <asp:Label runat="server" ID="Label5">Phone (optional):</asp:Label>
@@ -34,7 +34,7 @@
              <asp:Panel runat="server" CssClass="contentItem">
                 <asp:Label runat="server" ID="Label2">Password:</asp:Label>
                 <asp:TextBox runat="server" ID="txtPassword"></asp:TextBox>
-                 <asp:Panel runat="server" ID="pnlPasswordError" Visible="false">You must specify a valid Password</asp:Panel>
+                 <asp:Panel runat="server" ID="pnlPasswordError" Visible="false">You must specify a valid password</asp:Panel>
             </asp:Panel>
              <asp:Panel runat="server" CssClass="contentItem">
                 <asp:Label runat="server" ID="Label6">Password (repeat):</asp:Label>

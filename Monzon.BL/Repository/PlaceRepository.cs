@@ -22,7 +22,16 @@ namespace Monzon.BL.Repository
         {
             using (var db = new MonzonEntities())
             {
-                return db.PLACE.Where(p => !p.DELETED).ToList();
+                return db.PLACE.Where(p => !p.DELETED && p.HIVE_ID == null).ToList();
+            }
+        }
+
+
+        public List<PLACE> GetHives()
+        {
+            using (var db = new MonzonEntities())
+            {
+                return db.PLACE.Where(p => !p.DELETED && p.HIVE_ID != null).ToList();
             }
         }
     }

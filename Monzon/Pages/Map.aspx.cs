@@ -3,12 +3,15 @@ namespace Monzon.Pages
 {
     using System;
     using System.Drawing;
+    using System.Web.UI.HtmlControls;
     using System.Web.UI.WebControls;
     using BL.Model;
     using BL.Repository;
 
     public partial class Map : System.Web.UI.Page
     {
+        private int i = 1;
+
         protected void Page_Load(object sender, EventArgs e)
         {
                 var user = (LOGIN)Session["USER"];
@@ -16,7 +19,8 @@ namespace Monzon.Pages
                 if (user != null)
                 {
                     GetMembers();
-                    GetPlaces();
+                    //GetPlaces();
+                    GetHives();
                 }
                 else
                 {
@@ -28,20 +32,26 @@ namespace Monzon.Pages
         {
             var members = LoginRepository.Instance.GetMembers();
             this.pnlMap.Style.Add("position", "relative");
-
+            
             foreach (var member in members)
             {
-                Label boton = new Label {Width = member.LOGIN1.Length*7, Height = 12, Text = "     " + member.LOGIN1};
-                boton.BorderColor = Color.White;
-                boton.BorderWidth = 1;
-                boton.Style.Add("text-align", "center");
+                var boton = new System.Web.UI.WebControls.Label();
+                boton.Attributes.Add("onmouseover", "myFunction(" + i + ")");
+                boton.Attributes.Add("onmouseout", "myFunction(" + i + ")");
+                boton.Style.Add("background-image", "../Images/Map/person.svg");
                 boton.Style.Add("Position", "absolute");
                 boton.Style.Add("Top", member.X + "px");
                 boton.Style.Add("Left", member.Y + "px");
-                boton.BackColor = Color.SaddleBrown;
-                boton.ForeColor = Color.White;
-                boton.Font.Size = 8;
+                boton.Height = 36;
+                boton.Width = 36;
+
+                var div = new HtmlGenericControl("div") {ID = "myPopup" + i};
+                div.Attributes.Add("class", "popuptext");
+                div.InnerHtml = member.LOGIN1 + "</br>" + "X: " + member.X + " - Y: " + member.Y;
+                boton.Controls.Add(div);
+
                 pnlMap.Controls.Add(boton);
+                i++;
             }
         }
 
@@ -64,6 +74,55 @@ namespace Monzon.Pages
                 boton.ForeColor = Color.White;
                 boton.Font.Size = 8;
                 pnlMap.Controls.Add(boton);
+            }
+        }
+
+        private void GetHives()
+        {
+            var hives = PlaceRepository.Instance.GetHives();
+            this.pnlMap.Style.Add("position", "relative");
+
+            foreach (var hive in hives)
+            {
+                var boton = new System.Web.UI.WebControls.Label();
+                boton.Attributes.Add("onmouseover", "myFunction(" + i + ")");
+                boton.Attributes.Add("onmouseout", "myFunction(" + i + ")");
+                boton.Style.Add("background-image", "../Images/Map/hive.svg");
+                boton.Style.Add("Position", "absolute");
+                boton.Style.Add("Top", hive.X + "px");
+                boton.Style.Add("Left", hive.Y + "px");
+                boton.Height = 36;
+                boton.Width = 36;
+
+                var div = new HtmlGenericControl("div") { ID = "myPopup" + i };
+
+                div.Attributes.Add("class", "popuptext");
+
+                var hiveMembers = LoginRepository.Instance.GethiveMembers(hive.UNIQUE_ID);
+
+                var html = string.Empty;
+                var first = true;
+
+                foreach (var hiveMember in hiveMembers)
+                {
+                    if (!first)
+                    {
+                        html = html + ", ";
+                    }
+                    html = html + hiveMember.LOGIN1;
+                    first = false;
+                }
+
+                if (hiveMembers.Count > 0)
+                {
+                    html = html.Remove(0, html.Length - 2);
+                }
+
+                div.InnerHtml = hive.NAME + "</br><b>Members:</b> " + html + "</br>" + "X: " + hive.X + " - Y: " + hive.Y;
+                boton.Controls.Add(div);
+
+                pnlMap.Controls.Add(boton);
+                i++;
             }
         }
     }

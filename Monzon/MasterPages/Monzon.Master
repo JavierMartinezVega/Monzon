@@ -34,6 +34,8 @@
         .header .top .left .menuIcon{
             margin: 24px;
             color: #ffffff;
+            border: none;
+            outline: none;
         }
 
         .header .top .center{
@@ -110,7 +112,22 @@
             width: 280px;
             height: 100%;
             background: #404040;
+            /*background: #980000;*/
             z-index: 2;
+        }
+
+        .menu .column .button{
+            height: 32px;
+            top: 0;
+            float: left;
+            right: 0;
+            margin: 5px 0 0 0;
+            background: 0 0;
+            color: white;
+            border: none;
+            outline: none;
+            border-radius: 3px;
+            cursor: pointer;
         }
 
         .menu .background{
@@ -121,16 +138,9 @@
             height: 100%;
             background: rgba(0,0,0,0.25);
             z-index: 1;
+            border-style: none;
+            outline: none;
         }
-
-
-
-
-
-
-
-
-
 
         .userButton {
             padding: 0 12px;
@@ -322,15 +332,98 @@
             border-bottom: 2px solid #404040;
             padding: 0 12px;
         }
+
+         .menu .column .left .menuIcon{
+            margin: 24px;
+            color: #ffffff;
+             border: none;
+             outline: none;
+        }
+
+
+    </style>
+    
+    <style>
+        /* Popup container - can be anything you want */
+        .popup {
+            position: relative;
+            display: inline-block;
+            cursor: pointer;
+            -webkit-user-select: none;
+            -moz-user-select: none;
+            -ms-user-select: none;
+            user-select: none;
+}
+
+        /* The actual popup */
+        .popuptext {
+            visibility: hidden;
+            width: 160px;
+            background-color: #555;
+            color: #fff;
+            text-align: center;
+            border-radius: 6px;
+            padding: 8px 0;
+            position: absolute;
+            z-index: 1;
+            bottom: 125%;
+            left: 50%;
+            margin-left: -80px;
+        }
+
+        /* Popup arrow */
+        .popuptext::after {
+            content: "";
+            position: absolute;
+            top: 100%;
+            left: 50%;
+            margin-left: -5px;
+            border-width: 5px;
+            border-style: solid;
+            border-color: #555 transparent transparent transparent;
+        }
+
+        /* Toggle this class - hide and show the popup */
+        .show {
+            visibility: visible;
+            -webkit-animation: fadeIn 0.6s;
+            animation: fadeIn 0.6s;
+        }
+
+        /* Add animation (fade in the popup) */
+        @-webkit-keyframes fadeIn {
+            from {opacity: 0;} 
+            to {opacity: 1;}
+        }
+
+        @keyframes fadeIn {
+            from {opacity: 0;}
+            to {opacity:1 ;}
+        }
     </style>
 
-    <title>Gestoria</title>
+    <title>Bad Killers Guild</title>
     
     <asp:ContentPlaceHolder ID="head" runat="server">
         
     </asp:ContentPlaceHolder>
 </head>
 <body>
+
+    <script>
+    // When the user clicks on div, open the popup
+        function myFunction(id) {
+            console.log("MyID", id);
+            var popup = document.getElementById("ContentPlaceHolder1_myPopup" + id);
+
+        popup.classList.toggle("show");
+    }
+</script>
+    
+   <%-- <div class="popup" onmouseover="myFunction()" onmouseout="myFunction()">Click me to toggle the popup!
+        <span class="popuptext" id="myPopup">A Simple Popup!</span>
+    </div>--%>
+
     <form id="form1" runat="server">
         <asp:Panel ID="Panel1" runat="server" class="header">
             <!-- Menu, Logo, Action buttons -->
@@ -383,14 +476,25 @@
         <!-- Menu -->
         <asp:Panel runat="server" class="menu" ID="pnlMenu2" Visible="False">
              <asp:Button runat="server" class="background"  ID="btnMenu2" OnClick="btnMenu_Click"></asp:Button>
-             <asp:Panel runat="server" class="column"></asp:Panel>
-            
+             <asp:Panel runat="server" class="column">
+                 <asp:Panel ID="pnlMenu3" runat="server" class="left">
+                    <asp:ImageButton runat="server" class="menuIcon" ID="btnMenu3" OnClick="btnMenu3_Click" ImageUrl="../Images/menu.svg"/>
+                </asp:Panel>
+                 <ul>
+                    <li><asp:Button class="button" runat="server" ID="btnHome" Text="Home" OnClick="btnHome_Click" /></li>
+                    <li><asp:Button class="button" runat="server" ID="btnGuild" Text="Guild" OnClick="btnGuild_Click" /></li>
+                    <li><asp:Button class="button" runat="server" ID="btnBlog" Text="Blog" OnClick="btnBlog_Click"/></li>
+                    <li><asp:Button class="button" runat="server" ID="btnProfile" visibe="false" Text="Profile" OnClick="btnProfile_Click" Visible="false" /></li>
+                    <li><asp:Button class="button" runat="server" ID="btnMap" visibe="false" Text="Map" OnClick="btnMap_Click" Visible="false" /></li>
+                    <li><asp:Button class="button" runat="server" ID="btnContact" visibe="false" Text="Contact" OnClick="btnContact_Click"/></li>
+                 </ul>
+             </asp:Panel>
         </asp:Panel>
-    <div>
-        <asp:ContentPlaceHolder ID="ContentPlaceHolder1" runat="server">
+        <div>
+            <asp:ContentPlaceHolder ID="ContentPlaceHolder1" runat="server">
             
-        </asp:ContentPlaceHolder>
-    </div>
+            </asp:ContentPlaceHolder>
+        </div>
     </form>
 </body>
 </html>

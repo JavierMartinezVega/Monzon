@@ -13,17 +13,25 @@ namespace Monzon.MasterPages
             if (user != null)
             {
                 txtLUser.Text = user.FIRST_NAME + " " + user.LAST_NAME;
-                //menuPublic.Visible = false;
-                //menuLogged.Visible = true;
                 pnlUser.Visible = true;
                 pnlAcceso.Visible = false;
+                btnProfile.Visible = true;
+
+                if (user.PROFILE.BIZ_ID == "ADM" || user.PROFILE.BIZ_ID == "LED" || user.PROFILE.BIZ_ID == "R4")
+                {
+                    btnMap.Visible = true;
+                }
+                else
+                {
+                    btnMap.Visible = false;
+                }
             }
             else
             {
-                //menuPublic.Visible = true;
-                //menuLogged.Visible = false;
                 pnlUser.Visible = false;
                 pnlAcceso.Visible = true;
+                btnProfile.Visible = false;
+                btnMap.Visible = false;
             }
         }
 
@@ -33,6 +41,16 @@ namespace Monzon.MasterPages
         }
 
         protected void btnMenu_Click(object sender, EventArgs e)
+        {
+            if (this.pnlMenu2.Visible)
+                this.pnlMenu2.Visible = false;
+            else
+            {
+                this.pnlMenu2.Visible = true;
+            }
+        }
+
+        protected void btnMenu3_Click(object sender, EventArgs e)
         {
             if (this.pnlMenu2.Visible)
                 this.pnlMenu2.Visible = false;
@@ -83,6 +101,11 @@ namespace Monzon.MasterPages
             Response.Redirect("Map.aspx");
         }
 
+        protected void btnBlog_Click(object sender, EventArgs e)
+        {
+            Response.Redirect("Blog.aspx");
+        }
+
         protected void btnGuild_Click(object sender, EventArgs e)
         {
             Response.Redirect("Guild.aspx");
@@ -92,6 +115,7 @@ namespace Monzon.MasterPages
         {
             Response.Redirect("Members.aspx");
         }
+
         protected void btnRules_Click(object sender, EventArgs e)
         {
             Response.Redirect("Rules.aspx");

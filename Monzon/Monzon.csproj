@@ -90,9 +90,16 @@
   </ItemGroup>
   <ItemGroup>
     <Content Include="Global.asax" />
+    <Content Include="Images\Map\grass2.jpg" />
+    <Content Include="Images\Map\hive.svg" />
+    <Content Include="Images\home.svg" />
+    <Content Include="Images\logout.svg" />
     <Content Include="Images\Map\Croma.jpg" />
     <Content Include="Images\Map\Grass.jpg" />
+    <Content Include="Images\Map\person2.svg" />
+    <Content Include="Images\Map\point.png" />
     <Content Include="Images\menu.svg" />
+    <Content Include="Images\Map\person.svg" />
     <Content Include="Images\Tigre.jpg" />
     <Content Include="Pages\Place.aspx" />
     <Content Include="Pages\Map.aspx" />

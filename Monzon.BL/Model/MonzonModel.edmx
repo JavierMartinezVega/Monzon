@@ -21,7 +21,7 @@
           <Property Name="PHONE" Type="varchar" MaxLength="50" />
           <Property Name="X" Type="int" />
           <Property Name="Y" Type="int" />
-          <Property Name="HIVE" Type="bit" Nullable="false" />
+          <Property Name="HIVE_ID" Type="int" />
         </EntityType>
         <!--Errores durante la generación:
 advertencia 6002: La tabla o vista 'MONZON.dbo.MESSAGE' no tiene definida ninguna clave principal. Se ha inferido la clave y la definición se creado como una vista o tabla de solo lectura.-->
@@ -55,6 +55,7 @@ advertencia 6002: La tabla o vista 'MONZON.dbo.PLACE' no tiene definida ninguna 
           <Property Name="Y" Type="int" Nullable="false" />
           <Property Name="SUBTITLE" Type="nvarchar" MaxLength="100" />
           <Property Name="DELETED" Type="bit" Nullable="false" />
+          <Property Name="HIVE_ID" Type="int" />
         </EntityType>
         <!--Errores durante la generación:
 advertencia 6002: La tabla o vista 'MONZON.dbo.POST' no tiene definida ninguna clave principal. Se ha inferido la clave y la definición se creado como una vista o tabla de solo lectura.-->
@@ -112,7 +113,8 @@ advertencia 6002: La tabla o vista 'MONZON.dbo.POST' no tiene definida ninguna c
     [PLACE].[X] AS [X], 
     [PLACE].[Y] AS [Y], 
     [PLACE].[SUBTITLE] AS [SUBTITLE], 
-    [PLACE].[DELETED] AS [DELETED]
+    [PLACE].[DELETED] AS [DELETED], 
+    [PLACE].[HIVE_ID] AS [HIVE_ID]
     FROM [dbo].[PLACE] AS [PLACE]</DefiningQuery>
           </EntitySet>
           <EntitySet Name="POST" EntityType="Self.POST" store:Type="Tables" store:Schema="dbo">
@@ -160,7 +162,7 @@ advertencia 6002: La tabla o vista 'MONZON.dbo.POST' no tiene definida ninguna c
           <Property Name="PHONE" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
           <Property Name="X" Type="Int32" />
           <Property Name="Y" Type="Int32" />
-          <Property Name="HIVE" Type="Boolean" Nullable="false" />
+          <Property Name="HIVE_ID" Type="Int32" />
           <NavigationProperty Name="PROFILE" Relationship="MonzonModel.FK_LOGIN_PROFILE" FromRole="LOGIN" ToRole="PROFILE" />
         </EntityType>
         <EntityType Name="PROFILE">
@@ -201,6 +203,7 @@ advertencia 6002: La tabla o vista 'MONZON.dbo.POST' no tiene definida ninguna c
           <Property Name="Y" Type="Int32" Nullable="false" />
           <Property Name="SUBTITLE" Type="String" MaxLength="100" FixedLength="false" Unicode="true" />
           <Property Name="DELETED" Type="Boolean" Nullable="false" />
+          <Property Name="HIVE_ID" Type="Int32" />
         </EntityType>
         <EntityType Name="POST">
           <Key>
@@ -237,7 +240,7 @@ advertencia 6002: La tabla o vista 'MONZON.dbo.POST' no tiene definida ninguna c
           <EntitySetMapping Name="LOGIN">
             <EntityTypeMapping TypeName="MonzonModel.LOGIN">
               <MappingFragment StoreEntitySet="LOGIN">
-                <ScalarProperty Name="HIVE" ColumnName="HIVE" />
+                <ScalarProperty Name="HIVE_ID" ColumnName="HIVE_ID" />
                 <ScalarProperty Name="Y" ColumnName="Y" />
                 <ScalarProperty Name="X" ColumnName="X" />
                 <ScalarProperty Name="PHONE" ColumnName="PHONE" />
@@ -277,6 +280,7 @@ advertencia 6002: La tabla o vista 'MONZON.dbo.POST' no tiene definida ninguna c
           <EntitySetMapping Name="PLACE">
             <EntityTypeMapping TypeName="MonzonModel.PLACE">
               <MappingFragment StoreEntitySet="PLACE">
+                <ScalarProperty Name="HIVE_ID" ColumnName="HIVE_ID" />
                 <ScalarProperty Name="DELETED" ColumnName="DELETED" />
                 <ScalarProperty Name="SUBTITLE" ColumnName="SUBTITLE" />
                 <ScalarProperty Name="Y" ColumnName="Y" />

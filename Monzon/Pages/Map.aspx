@@ -4,10 +4,10 @@
 </asp:Content>
 <asp:Content ID="Content2" ContentPlaceHolderID="ContentPlaceHolder1" runat="server">
     <asp:Panel runat="server" CssClass="contentBox">
-        <div class="pageTitle">Contact</div>
+        <!--<div class="pageTitle">Contact</div>-->
 
         
-        <asp:Panel runat="server" Height="510px" Width="1022px" BackImageUrl="../Images/Map/Croma.jpg" CssClass="contentItem" ID="pnlMap" >
+        <asp:Panel runat="server" Height="510px" Width="1022px" BackImageUrl="../Images/Map/grass2.jpg" CssClass="contentItem" ID="pnlMap" >
              
         </asp:Panel>
 

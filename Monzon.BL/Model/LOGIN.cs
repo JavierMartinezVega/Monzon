@@ -26,7 +26,7 @@ namespace Monzon.BL.Model
         public string PHONE { get; set; }
         public Nullable<int> X { get; set; }
         public Nullable<int> Y { get; set; }
-        public bool HIVE { get; set; }
+        public Nullable<int> HIVE_ID { get; set; }
     
         public virtual PROFILE PROFILE { get; set; }
     }

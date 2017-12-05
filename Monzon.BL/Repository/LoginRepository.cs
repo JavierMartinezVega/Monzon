@@ -62,7 +62,7 @@ namespace Monzon.BL.Repository
         {
             using (var db = new MonzonEntities())
             {
-                return db.LOGIN.Where(l => l.PROFILE.BIZ_ID != "PUB").ToList();
+                return db.LOGIN.Where(l => l.PROFILE.BIZ_ID != "PUB" && l.PROFILE.BIZ_ID != "ADM" && l.HIVE_ID == null).ToList();
             }
         }
 

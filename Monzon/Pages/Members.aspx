@@ -4,7 +4,7 @@
 </asp:Content>
 <asp:Content ID="Content2" ContentPlaceHolderID="ContentPlaceHolder1" runat="server">
     <asp:Panel runat="server" CssClass="contentBox">
-        <div class="pageTitle">Mi Perfil</div>
+        <div class="pageTitle">Members</div>
         
         <ul class="tabs">
             <li role="presentation"><asp:LinkButton ID="btnPersonal" runat="server" OnClick="PersonalBtn_Click">Leader</asp:LinkButton></li>
@@ -16,36 +16,20 @@
         
         <asp:Panel runat="server" ID="pnlPersonal" >
             <asp:Panel runat="server" CssClass="contentItem" >
-                <asp:Label runat="server" ID="lblName">Nombre:</asp:Label>
-                <asp:TextBox runat="server" ID="txtName"></asp:TextBox>
+                <asp:Label runat="server" ID="lblUser">User:</asp:Label>
+                <asp:Label runat="server" ID="lblUserData"></asp:Label>
             </asp:Panel>
             <asp:Panel runat="server" CssClass="contentItem">
-                <asp:Label runat="server" ID="Label1">Apellidos:</asp:Label>
-                <asp:TextBox runat="server" ID="txtSurname"></asp:TextBox>
+                <asp:Label runat="server" ID="lblName">Name:</asp:Label>
+                <asp:Label runat="server" ID="lblNameData"></asp:Label>
             </asp:Panel>
-    
-            <asp:Panel runat="server" CssClass="contentItem">
-                <asp:Label runat="server" ID="Label2">Teléfono:</asp:Label>
-                <asp:TextBox runat="server" ID="txtPhone"></asp:TextBox>
-            </asp:Panel>
-            <asp:Button Text="Guardar" runat="server" CssClass="saveButton" OnClick="Unnamed5_Click"/>
+            <asp:Button Text="Message" runat="server" CssClass="saveButton" ID="btnMessageLeader" OnClick="btnMessageLeader_Click" Visible="false"/>
         </asp:Panel>
         
         <asp:Panel runat="server" ID="pnlEmail" Visible="false">
-            <asp:Panel runat="server" CssClass="contentItem" >
-                <asp:Label runat="server" ID="Label6">Actual:</asp:Label>
-                <asp:TextBox runat="server" ID="txtEmailOld" Enabled="false"></asp:TextBox>
+            <asp:Panel runat="server" CssClass="contentItem" ID="pnlR4" >
+           
             </asp:Panel>
-            <asp:Panel runat="server" CssClass="contentItem">
-                <asp:Label runat="server" ID="Label7">Nuevo:</asp:Label>
-                <asp:TextBox runat="server" ID="txtEmailNew"></asp:TextBox>
-            </asp:Panel>
-    
-            <asp:Panel runat="server" CssClass="contentItem">
-                <asp:Label runat="server" ID="Label8">Repetir Nuevo:</asp:Label>
-                <asp:TextBox runat="server" ID="txtEmailNewRepeat"></asp:TextBox>
-            </asp:Panel>
-            <asp:Button Text="Guardar" runat="server" CssClass="saveButton" OnClick="Unnamed9_Click"/>
         </asp:Panel>
 
         <asp:Panel runat="server" ID="pnlPassword" Visible="false">

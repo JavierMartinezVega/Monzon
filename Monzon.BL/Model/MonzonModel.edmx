@@ -39,15 +39,9 @@ advertencia 6002: La tabla o vista 'MONZON.dbo.MESSAGE' no tiene definida ningun
           <Property Name="TEXT" Type="nvarchar(max)" Nullable="false" />
           <Property Name="MESSAGE_DATE" Type="datetime" Nullable="false" />
         </EntityType>
-        <!--Errores durante la generación:
-advertencia 6002: La tabla o vista 'MONZON.dbo.PLACE' no tiene definida ninguna clave principal. Se ha inferido la clave y la definición se creado como una vista o tabla de solo lectura.-->
         <EntityType Name="PLACE">
           <Key>
             <PropertyRef Name="UNIQUE_ID" />
-            <PropertyRef Name="NAME" />
-            <PropertyRef Name="X" />
-            <PropertyRef Name="Y" />
-            <PropertyRef Name="DELETED" />
           </Key>
           <Property Name="UNIQUE_ID" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
           <Property Name="NAME" Type="nvarchar" MaxLength="100" Nullable="false" />
@@ -55,7 +49,15 @@ advertencia 6002: La tabla o vista 'MONZON.dbo.PLACE' no tiene definida ninguna 
           <Property Name="Y" Type="int" Nullable="false" />
           <Property Name="SUBTITLE" Type="nvarchar" MaxLength="100" />
           <Property Name="DELETED" Type="bit" Nullable="false" />
-          <Property Name="HIVE_ID" Type="int" />
+          <Property Name="PLACE_TYPE_ID" Type="int" Nullable="false" />
+        </EntityType>
+        <EntityType Name="PLACE_TYPE">
+          <Key>
+            <PropertyRef Name="UNIQUE_ID" />
+          </Key>
+          <Property Name="UNIQUE_ID" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="CAPTION" Type="nvarchar" MaxLength="50" Nullable="false" />
+          <Property Name="BIZ_ID" Type="nchar" MaxLength="10" Nullable="false" />
         </EntityType>
         <!--Errores durante la generación:
 advertencia 6002: La tabla o vista 'MONZON.dbo.POST' no tiene definida ninguna clave principal. Se ha inferido la clave y la definición se creado como una vista o tabla de solo lectura.-->
@@ -94,8 +96,22 @@ advertencia 6002: La tabla o vista 'MONZON.dbo.POST' no tiene definida ninguna c
             </Dependent>
           </ReferentialConstraint>
         </Association>
+        <Association Name="FK_PLACE_PLACE_TYPE">
+          <End Role="PLACE_TYPE" Type="Self.PLACE_TYPE" Multiplicity="1" />
+          <End Role="PLACE" Type="Self.PLACE" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="PLACE_TYPE">
+              <PropertyRef Name="UNIQUE_ID" />
+            </Principal>
+            <Dependent Role="PLACE">
+              <PropertyRef Name="PLACE_TYPE_ID" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
         <EntityContainer Name="MonzonModelStoreContainer">
           <EntitySet Name="LOGIN" EntityType="Self.LOGIN" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="PLACE" EntityType="Self.PLACE" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="PLACE_TYPE" EntityType="Self.PLACE_TYPE" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="PROFILE" EntityType="Self.PROFILE" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="MESSAGE" EntityType="Self.MESSAGE" store:Type="Tables" store:Schema="dbo">
             <DefiningQuery>SELECT 
@@ -105,17 +121,6 @@ advertencia 6002: La tabla o vista 'MONZON.dbo.POST' no tiene definida ninguna c
     [MESSAGE].[TEXT] AS [TEXT], 
     [MESSAGE].[MESSAGE_DATE] AS [MESSAGE_DATE]
     FROM [dbo].[MESSAGE] AS [MESSAGE]</DefiningQuery>
-          </EntitySet>
-          <EntitySet Name="PLACE" EntityType="Self.PLACE" store:Type="Tables" store:Schema="dbo">
-            <DefiningQuery>SELECT 
-    [PLACE].[UNIQUE_ID] AS [UNIQUE_ID], 
-    [PLACE].[NAME] AS [NAME], 
-    [PLACE].[X] AS [X], 
-    [PLACE].[Y] AS [Y], 
-    [PLACE].[SUBTITLE] AS [SUBTITLE], 
-    [PLACE].[DELETED] AS [DELETED], 
-    [PLACE].[HIVE_ID] AS [HIVE_ID]
-    FROM [dbo].[PLACE] AS [PLACE]</DefiningQuery>
           </EntitySet>
           <EntitySet Name="POST" EntityType="Self.POST" store:Type="Tables" store:Schema="dbo">
             <DefiningQuery>SELECT 
@@ -130,6 +135,10 @@ advertencia 6002: La tabla o vista 'MONZON.dbo.POST' no tiene definida ninguna c
             <End Role="PROFILE" EntitySet="PROFILE" />
             <End Role="LOGIN" EntitySet="LOGIN" />
           </AssociationSet>
+          <AssociationSet Name="FK_PLACE_PLACE_TYPE" Association="Self.FK_PLACE_PLACE_TYPE">
+            <End Role="PLACE_TYPE" EntitySet="PLACE_TYPE" />
+            <End Role="PLACE" EntitySet="PLACE" />
+          </AssociationSet>
         </EntityContainer>
       </Schema></edmx:StorageModels>
     <!-- CSDL content -->
@@ -137,13 +146,18 @@ advertencia 6002: La tabla o vista 'MONZON.dbo.POST' no tiene definida ninguna c
       <Schema Namespace="MonzonModel" Alias="Self" annotation:UseStrongSpatialTypes="false" xmlns:annotation="http://schemas.microsoft.com/ado/2009/02/edm/annotation" xmlns:customannotation="http://schemas.microsoft.com/ado/2013/11/edm/customannotation" xmlns="http://schemas.microsoft.com/ado/2009/11/edm">
         <EntityContainer Name="MonzonEntities" annotation:LazyLoadingEnabled="true">
           <EntitySet Name="LOGIN" EntityType="MonzonModel.LOGIN" />
+          <EntitySet Name="PLACE" EntityType="MonzonModel.PLACE" />
+          <EntitySet Name="PLACE_TYPE" EntityType="MonzonModel.PLACE_TYPE" />
           <EntitySet Name="PROFILE" EntityType="MonzonModel.PROFILE" />
           <EntitySet Name="MESSAGE" EntityType="MonzonModel.MESSAGE" />
-          <EntitySet Name="PLACE" EntityType="MonzonModel.PLACE" />
           <EntitySet Name="POST" EntityType="MonzonModel.POST" />
           <AssociationSet Name="FK_LOGIN_PROFILE" Association="MonzonModel.FK_LOGIN_PROFILE">
             <End Role="PROFILE" EntitySet="PROFILE" />
             <End Role="LOGIN" EntitySet="LOGIN" />
+          </AssociationSet>
+          <AssociationSet Name="FK_PLACE_PLACE_TYPE" Association="MonzonModel.FK_PLACE_PLACE_TYPE">
+            <End Role="PLACE_TYPE" EntitySet="PLACE_TYPE" />
+            <End Role="PLACE" EntitySet="PLACE" />
           </AssociationSet>
         </EntityContainer>
         <EntityType Name="LOGIN">
@@ -164,6 +178,28 @@ advertencia 6002: La tabla o vista 'MONZON.dbo.POST' no tiene definida ninguna c
           <Property Name="Y" Type="Int32" />
           <Property Name="HIVE_ID" Type="Int32" />
           <NavigationProperty Name="PROFILE" Relationship="MonzonModel.FK_LOGIN_PROFILE" FromRole="LOGIN" ToRole="PROFILE" />
+        </EntityType>
+        <EntityType Name="PLACE">
+          <Key>
+            <PropertyRef Name="UNIQUE_ID" />
+          </Key>
+          <Property Name="UNIQUE_ID" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="NAME" Type="String" Nullable="false" MaxLength="100" FixedLength="false" Unicode="true" />
+          <Property Name="X" Type="Int32" Nullable="false" />
+          <Property Name="Y" Type="Int32" Nullable="false" />
+          <Property Name="SUBTITLE" Type="String" MaxLength="100" FixedLength="false" Unicode="true" />
+          <Property Name="DELETED" Type="Boolean" Nullable="false" />
+          <Property Name="PLACE_TYPE_ID" Type="Int32" Nullable="false" />
+          <NavigationProperty Name="PLACE_TYPE" Relationship="MonzonModel.FK_PLACE_PLACE_TYPE" FromRole="PLACE" ToRole="PLACE_TYPE" />
+        </EntityType>
+        <EntityType Name="PLACE_TYPE">
+          <Key>
+            <PropertyRef Name="UNIQUE_ID" />
+          </Key>
+          <Property Name="UNIQUE_ID" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="CAPTION" Type="String" Nullable="false" MaxLength="50" FixedLength="false" Unicode="true" />
+          <Property Name="BIZ_ID" Type="String" Nullable="false" MaxLength="10" FixedLength="true" Unicode="true" />
+          <NavigationProperty Name="PLACE" Relationship="MonzonModel.FK_PLACE_PLACE_TYPE" FromRole="PLACE_TYPE" ToRole="PLACE" />
         </EntityType>
         <EntityType Name="PROFILE">
           <Key>
@@ -189,22 +225,6 @@ advertencia 6002: La tabla o vista 'MONZON.dbo.POST' no tiene definida ninguna c
           <Property Name="TEXT" Type="String" Nullable="false" MaxLength="Max" FixedLength="false" Unicode="true" />
           <Property Name="MESSAGE_DATE" Type="DateTime" Nullable="false" Precision="3" />
         </EntityType>
-        <EntityType Name="PLACE">
-          <Key>
-            <PropertyRef Name="UNIQUE_ID" />
-            <PropertyRef Name="NAME" />
-            <PropertyRef Name="X" />
-            <PropertyRef Name="Y" />
-            <PropertyRef Name="DELETED" />
-          </Key>
-          <Property Name="UNIQUE_ID" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
-          <Property Name="NAME" Type="String" Nullable="false" MaxLength="100" FixedLength="false" Unicode="true" />
-          <Property Name="X" Type="Int32" Nullable="false" />
-          <Property Name="Y" Type="Int32" Nullable="false" />
-          <Property Name="SUBTITLE" Type="String" MaxLength="100" FixedLength="false" Unicode="true" />
-          <Property Name="DELETED" Type="Boolean" Nullable="false" />
-          <Property Name="HIVE_ID" Type="Int32" />
-        </EntityType>
         <EntityType Name="POST">
           <Key>
             <PropertyRef Name="UNIQUE_ID" />
@@ -228,6 +248,18 @@ advertencia 6002: La tabla o vista 'MONZON.dbo.POST' no tiene definida ninguna c
             </Principal>
             <Dependent Role="LOGIN">
               <PropertyRef Name="ID_PROFILE" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_PLACE_PLACE_TYPE">
+          <End Type="MonzonModel.PLACE_TYPE" Role="PLACE_TYPE" Multiplicity="1" />
+          <End Type="MonzonModel.PLACE" Role="PLACE" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="PLACE_TYPE">
+              <PropertyRef Name="UNIQUE_ID" />
+            </Principal>
+            <Dependent Role="PLACE">
+              <PropertyRef Name="PLACE_TYPE_ID" />
             </Dependent>
           </ReferentialConstraint>
         </Association>
@@ -256,6 +288,28 @@ advertencia 6002: La tabla o vista 'MONZON.dbo.POST' no tiene definida ninguna c
               </MappingFragment>
             </EntityTypeMapping>
           </EntitySetMapping>
+          <EntitySetMapping Name="PLACE">
+            <EntityTypeMapping TypeName="MonzonModel.PLACE">
+              <MappingFragment StoreEntitySet="PLACE">
+                <ScalarProperty Name="PLACE_TYPE_ID" ColumnName="PLACE_TYPE_ID" />
+                <ScalarProperty Name="DELETED" ColumnName="DELETED" />
+                <ScalarProperty Name="SUBTITLE" ColumnName="SUBTITLE" />
+                <ScalarProperty Name="Y" ColumnName="Y" />
+                <ScalarProperty Name="X" ColumnName="X" />
+                <ScalarProperty Name="NAME" ColumnName="NAME" />
+                <ScalarProperty Name="UNIQUE_ID" ColumnName="UNIQUE_ID" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="PLACE_TYPE">
+            <EntityTypeMapping TypeName="MonzonModel.PLACE_TYPE">
+              <MappingFragment StoreEntitySet="PLACE_TYPE">
+                <ScalarProperty Name="BIZ_ID" ColumnName="BIZ_ID" />
+                <ScalarProperty Name="CAPTION" ColumnName="CAPTION" />
+                <ScalarProperty Name="UNIQUE_ID" ColumnName="UNIQUE_ID" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
           <EntitySetMapping Name="PROFILE">
             <EntityTypeMapping TypeName="MonzonModel.PROFILE">
               <MappingFragment StoreEntitySet="PROFILE">
@@ -274,19 +328,6 @@ advertencia 6002: La tabla o vista 'MONZON.dbo.POST' no tiene definida ninguna c
                 <ScalarProperty Name="SUBJECT" ColumnName="SUBJECT" />
                 <ScalarProperty Name="USER_TO_ID" ColumnName="USER_TO_ID" />
                 <ScalarProperty Name="USER_FROM_ID" ColumnName="USER_FROM_ID" />
-              </MappingFragment>
-            </EntityTypeMapping>
-          </EntitySetMapping>
-          <EntitySetMapping Name="PLACE">
-            <EntityTypeMapping TypeName="MonzonModel.PLACE">
-              <MappingFragment StoreEntitySet="PLACE">
-                <ScalarProperty Name="HIVE_ID" ColumnName="HIVE_ID" />
-                <ScalarProperty Name="DELETED" ColumnName="DELETED" />
-                <ScalarProperty Name="SUBTITLE" ColumnName="SUBTITLE" />
-                <ScalarProperty Name="Y" ColumnName="Y" />
-                <ScalarProperty Name="X" ColumnName="X" />
-                <ScalarProperty Name="NAME" ColumnName="NAME" />
-                <ScalarProperty Name="UNIQUE_ID" ColumnName="UNIQUE_ID" />
               </MappingFragment>
             </EntityTypeMapping>
           </EntitySetMapping>

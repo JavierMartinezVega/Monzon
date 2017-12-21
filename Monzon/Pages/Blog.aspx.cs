@@ -2,203 +2,52 @@
 namespace Monzon.Pages
 {
     using System;
+    using System.Configuration;
+    using System.Web.UI.WebControls;
+    using BL.Model;
+    using BL.Repository;
 
     public partial class Blog : System.Web.UI.Page
     {
         protected void Page_Load(object sender, EventArgs e)
         {
-            //if (!IsPostBack)
-            //{
-            //    //pnlEmail.Visible = false;
-            //    //btnEmail.Attributes.Remove("class");
-
-            //    //pnlApply.Visible = false;
-            //    //btnApply.Attributes.Remove("class");
-
-            //    //pnlPassword.Visible = false;
-            //    //btnPassword.Attributes.Remove("class");
-
-            //    //pnlPersonal.Visible = true;
-            //    //btnPersonal.Attributes.Add("class", "active");
-
-            //    //pnlActive.Visible = false;
-            //    //btnActive.Attributes.Remove("class");
-
-            //    var user = (LOGIN)Session["USER"];
-
-            //    //if (user != null)
-            //    //{
-            //    //    txtName.Text = user.FIRST_NAME;
-            //    //    txtSurname.Text = user.LAST_NAME;
-            //    //    txtPhone.Text = user.PHONE;
-            //    //    txtEmailOld.Text = user.EMAIL;
-            //    //}
-            //    //else
-            //    //{
-            //    //    Response.Redirect("");
-            //    //}
-            //}
+            if (!IsPostBack)
+                LoadData(1);
         }
 
-        //protected void PasswordBtn_Click(object sender, EventArgs e)
-        //{
-        //    //pnlEmail.Visible = false;
-        //    //btnEmail.Attributes.Remove("class");
+        private void LoadData(int page, int pageSize = 6)
+        {
+            var posts = PostRepository.Instance.GetDescendingDate(page, pageSize);
+            pnlMore.Visible = posts.Count >= 6;
 
-        //    //pnlApply.Visible = false;
-        //    //btnApply.Attributes.Remove("class");
+            int i = 0;
 
-        //    //pnlPassword.Visible = true;
-        //    //btnPassword.Attributes.Add("class", "active");
+            foreach (var post in posts)
+            {
+                if (i == 4)
+                {
+                    break;
+                }
 
-        //    //pnlPersonal.Visible = false;
-        //    //btnPersonal.Attributes.Remove("class");
+                var panel = new Panel();
 
-        //    //pnlActive.Visible = false;
-        //    //btnActive.Attributes.Remove("class");
-        //}
+                var image = new Image { ImageUrl = "../Images/post/" + post.URL, Width=100 };
 
-        //protected void EmailBtn_Click(object sender, EventArgs e)
-        //{
-        //    //pnlEmail.Visible = true;
-        //    //btnEmail.Attributes.Add("class", "active"); 
+                var labelTitle = new Label { Text = post.TITLE };
 
-        //    //pnlPassword.Visible = false;
-        //    //btnPassword.Attributes.Remove("class");
+                var labelText = new Label { Text = post.TEXT };
 
-        //    //pnlPersonal.Visible = false;
-        //    //btnPersonal.Attributes.Remove("class");
+                var linkButton = new LinkButton { Text = "Read more...", PostBackUrl = "Post.aspx?id=" + post.UNIQUE_ID };
 
-        //    //pnlApply.Visible = false;
-        //    //btnApply.Attributes.Remove("class");
+                panel.Controls.Add(image);
+                panel.Controls.Add(labelTitle);
+                panel.Controls.Add(labelText);
+                panel.Controls.Add(linkButton);
 
-        //    //pnlActive.Visible = false;
-        //    //btnActive.Attributes.Remove("class");
-        //}
-
-        //protected void ActiveBtn_Click(object sender, EventArgs e)
-        //{
-        //    pnlEmail.Visible = false;
-        //    btnEmail.Attributes.Remove("class");
-
-        //    pnlApply.Visible = false;
-        //    btnApply.Attributes.Remove("class");
-
-        //    pnlPassword.Visible = false;
-        //    btnPassword.Attributes.Remove("class");
-
-        //    pnlPersonal.Visible = false;
-        //    btnPersonal.Attributes.Add("class", "active");
-
-        //    pnlActive.Visible = true;
-        //    btnActive.Attributes.Add("class", "active");
-        //}
-        
-        //protected void PersonalBtn_Click(object sender, EventArgs e)
-        //{
-        //    pnlEmail.Visible = false;
-        //    btnEmail.Attributes.Remove("class");
-
-        //    pnlApply.Visible = false;
-        //    btnApply.Attributes.Remove("class");
-
-        //    pnlPassword.Visible = false;
-        //    btnPassword.Attributes.Remove("class");
-
-        //    pnlPersonal.Visible = true;
-        //    btnPersonal.Attributes.Add("class", "active");
-
-        //    pnlActive.Visible = false;
-        //    btnActive.Attributes.Remove("class");
-        //}
-
-        //protected void ApplyBtn_Click(object sender, EventArgs e)
-        //{
-        //    pnlEmail.Visible = false;
-        //    btnEmail.Attributes.Remove("class");
-
-        //    pnlPassword.Visible = false;
-        //    btnPassword.Attributes.Remove("class");
-
-        //    pnlPersonal.Visible = false;
-        //    btnPersonal.Attributes.Remove("class");
-
-        //    pnlApply.Visible = false;
-        //    btnApply.Attributes.Add("class", "active");
-
-        //    pnlActive.Visible = false;
-        //    btnActive.Attributes.Remove("class");
-        //}
-
-
-        //protected void Unnamed5_Click(object sender, EventArgs e)
-        //{
-        //    var user = (LOGIN)Session["USER"];
-
-        //    if (user != null)
-        //    {
-        //        using (var db = new MonzonEntities())
-        //        {
-        //            var dbUser = db.LOGIN.FirstOrDefault(l => l.UNIQUE_ID == user.UNIQUE_ID);
-        //            dbUser.FIRST_NAME = txtName.Text;
-        //            dbUser.LAST_NAME = txtSurname.Text;
-        //            dbUser.PHONE = txtPhone.Text;
-
-        //            db.LOGIN.Attach(dbUser);
-        //            db.Entry(dbUser).State = EntityState.Modified;
-        //            db.SaveChanges();
-        //        }
-        //    }
-        //}
-
-        //protected void Unnamed9_Click(object sender, EventArgs e)
-        //{
-        //    if (txtEmailNew.Text != txtEmailNewRepeat.Text)
-        //    {
-        //        //LOS EMAILS NO COINCIDEN
-        //        return;
-        //    }
-
-        //    if (!ValidEmail(txtEmailNew.Text))
-        //    {
-        //        //NO ES UN MAIL VALIDO
-        //    }
-
-        //    var user = (LOGIN)Session["USER"];
-
-        //    if (user != null)
-        //    {
-        //        using (var db = new MonzonEntities())
-        //        {
-        //            var dbUser = db.LOGIN.FirstOrDefault(l => l.UNIQUE_ID == user.UNIQUE_ID);
-        //            dbUser.EMAIL = txtEmailNew.Text;
-        //            db.LOGIN.Attach(dbUser);
-        //            db.Entry(dbUser).State = EntityState.Modified;
-        //            db.SaveChanges();
-        //        }
-        //    }
-        //}
-
-        //private Boolean ValidEmail(String email)
-        //{
-        //    const string expresion = "\\w+([-+.']\\w+)*@\\w+([-.]\\w+)*\\.\\w+([-.]\\w+)*";
-        //    if (Regex.IsMatch(email, expresion))
-        //    {
-        //        if (Regex.Replace(email, expresion, String.Empty).Length == 0)
-        //        {
-        //            return true;
-        //        }
-        //        else
-        //        {
-        //            return false;
-        //        }
-        //    }
-        //    else
-        //    {
-        //        return false;
-        //    }
-        //}
-
+                pnlPosts.Controls.Add(panel);
+                i = i++;
+            }
+        }
         protected void Unnamed13_Click(object sender, EventArgs e)
         {
             Load3More();

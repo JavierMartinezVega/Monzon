@@ -90,17 +90,37 @@
   </ItemGroup>
   <ItemGroup>
     <Content Include="Global.asax" />
+    <Content Include="Images\addBlue.svg" />
+    <Content Include="Images\add.svg" />
+    <Content Include="Images\label.svg" />
+    <Content Include="Images\logo.svg" />
+    <Content Include="Images\Map\BigBluePointer.png" />
+    <Content Include="Images\Map\BigGreenPointer.png" />
+    <Content Include="Images\Map\BigRedPointer.png" />
+    <Content Include="Images\Map\BluePoint.png" />
+    <Content Include="Images\Map\Crystal.png" />
     <Content Include="Images\Map\grass2.jpg" />
+    <Content Include="Images\Map\GreenPointer.png" />
     <Content Include="Images\Map\hive.svg" />
-    <Content Include="Images\home.svg" />
     <Content Include="Images\logout.svg" />
     <Content Include="Images\Map\Croma.jpg" />
     <Content Include="Images\Map\Grass.jpg" />
+    <Content Include="Images\Map\map.jpg" />
+    <Content Include="Images\Map\map2.jpg" />
     <Content Include="Images\Map\person2.svg" />
     <Content Include="Images\Map\point.png" />
+    <Content Include="Images\Map\RedPoint.png" />
     <Content Include="Images\menu.svg" />
     <Content Include="Images\Map\person.svg" />
+    <Content Include="Images\Menu\blog.svg" />
+    <Content Include="Images\Menu\email.svg" />
+    <Content Include="Images\Menu\guild.svg" />
+    <Content Include="Images\Menu\home.svg" />
+    <Content Include="Images\Menu\map.svg" />
+    <Content Include="Images\Menu\place.svg" />
+    <Content Include="Images\Menu\profile.svg" />
     <Content Include="Images\Tigre.jpg" />
+    <Content Include="Pages\NotFound.aspx" />
     <Content Include="Pages\Place.aspx" />
     <Content Include="Pages\Map.aspx" />
     <Content Include="Pages\EditPost.aspx" />
@@ -112,6 +132,7 @@
     <Content Include="Pages\Forbiden.aspx" />
     <Content Include="Pages\Blog.aspx" />
     <Content Include="Pages\Requirements.aspx" />
+    <Content Include="Pages\Places.aspx" />
     <Content Include="Pages\Rules.aspx" />
     <Content Include="Pages\Members.aspx" />
     <Content Include="Pages\Index.aspx" />
@@ -137,6 +158,13 @@
       <DependentUpon>Monzon.Master</DependentUpon>
     </Compile>
     <Compile Include="Models\MapMember.cs" />
+    <Compile Include="Pages\NotFound.aspx.cs">
+      <DependentUpon>NotFound.aspx</DependentUpon>
+      <SubType>ASPXCodeBehind</SubType>
+    </Compile>
+    <Compile Include="Pages\NotFound.aspx.designer.cs">
+      <DependentUpon>NotFound.aspx</DependentUpon>
+    </Compile>
     <Compile Include="Pages\Place.aspx.cs">
       <DependentUpon>Place.aspx</DependentUpon>
       <SubType>ASPXCodeBehind</SubType>
@@ -214,6 +242,13 @@
     <Compile Include="Pages\Requirements.aspx.designer.cs">
       <DependentUpon>Requirements.aspx</DependentUpon>
     </Compile>
+    <Compile Include="Pages\Places.aspx.cs">
+      <DependentUpon>Places.aspx</DependentUpon>
+      <SubType>ASPXCodeBehind</SubType>
+    </Compile>
+    <Compile Include="Pages\Places.aspx.designer.cs">
+      <DependentUpon>Places.aspx</DependentUpon>
+    </Compile>
     <Compile Include="Pages\Rules.aspx.cs">
       <DependentUpon>Rules.aspx</DependentUpon>
       <SubType>ASPXCodeBehind</SubType>
@@ -269,6 +304,7 @@
   <ItemGroup>
     <Content Include="packages.config" />
     <Content Include="MasterPages\Monzon.Master" />
+    <None Include="Properties\PublishProfiles\FILES.pubxml" />
     <None Include="Web.Debug.config">
       <DependentUpon>Web.config</DependentUpon>
     </None>

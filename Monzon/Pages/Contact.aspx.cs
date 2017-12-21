@@ -6,6 +6,7 @@ namespace Monzon.Pages
     using System.Linq;
     using System.Text.RegularExpressions;
     using BL.Model;
+    using Utils;
 
     public partial class Contact : System.Web.UI.Page
     {
@@ -55,37 +56,16 @@ namespace Monzon.Pages
         protected void Unnamed13_Click(object sender, EventArgs e)
         {
 
-            //SEND EMAIL
-
-
-            //var user = (LOGIN)Session["USER"];
-
-            //if (user != null)
-            //{
-            //    using (var db = new MonzonEntities())
-            //    {
-            //        var dbUser = db.LOGIN.FirstOrDefault(l => l.UNIQUE_ID == user.UNIQUE_ID);
-
-            //        if (txtPasswordNew.Text == dbUser.PASSWORD)
-            //        {
-            //            if (txtPasswordNew.Text != txtPasswordNewRepeat.Text)
-            //            {
-            //                //LAS PASSWORD NUEVAS NO COINCIDEN
-            //            }
-            //            else
-            //            {
-            //                dbUser.PASSWORD = txtPasswordNew.Text;
-            //                db.LOGIN.Attach(dbUser);
-            //                db.Entry(dbUser).State = EntityState.Modified;
-            //                db.SaveChanges();
-            //            }
-            //        }
-            //        else
-            //        {
-            //            //LA PASSWORD ANTIGUA NO ES CORRECTA
-            //        }
-            //    }
-            //}
+            if (MailHelper.SendContactEmail(txtName.Text, txtEmail.Text, txtMessage.Text))
+            {
+                pnlError.Visible = false;
+                pnlOk.Visible = true;
+            }
+            else
+            {
+                pnlError.Visible = true;
+                pnlOk.Visible = false;
+            }
         }
     }
 }

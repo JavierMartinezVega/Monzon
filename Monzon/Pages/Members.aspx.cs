@@ -5,7 +5,9 @@ namespace Monzon.Pages
     using System.Data.Entity;
     using System.Linq;
     using System.Text.RegularExpressions;
+    using System.Web.UI.WebControls;
     using BL.Model;
+    using BL.Repository;
 
     public partial class Members : System.Web.UI.Page
     {
@@ -30,6 +32,7 @@ namespace Monzon.Pages
 
                 var user = (LOGIN)Session["USER"];
 
+                LeaderData();
                 //if (user != null)
                 //{
                 //    txtName.Text = user.FIRST_NAME;
@@ -144,9 +147,9 @@ namespace Monzon.Pages
                 using (var db = new MonzonEntities())
                 {
                     var dbUser = db.LOGIN.FirstOrDefault(l => l.UNIQUE_ID == user.UNIQUE_ID);
-                    dbUser.FIRST_NAME = txtName.Text;
-                    dbUser.LAST_NAME = txtSurname.Text;
-                    dbUser.PHONE = txtPhone.Text;
+                    //dbUser.FIRST_NAME = lblName.Text + " " + ;
+                    //dbUser.LAST_NAME = txtSurname.Text;
+                    //dbUser.PHONE = txtPhone.Text;
 
                     db.LOGIN.Attach(dbUser);
                     db.Entry(dbUser).State = EntityState.Modified;
@@ -157,30 +160,30 @@ namespace Monzon.Pages
 
         protected void Unnamed9_Click(object sender, EventArgs e)
         {
-            if (txtEmailNew.Text != txtEmailNewRepeat.Text)
-            {
-                //LOS EMAILS NO COINCIDEN
-                return;
-            }
+            //if (txtEmailNew.Text != txtEmailNewRepeat.Text)
+            //{
+            //    //LOS EMAILS NO COINCIDEN
+            //    return;
+            //}
 
-            if (!ValidEmail(txtEmailNew.Text))
-            {
-                //NO ES UN MAIL VALIDO
-            }
+            //if (!ValidEmail(txtEmailNew.Text))
+            //{
+            //    //NO ES UN MAIL VALIDO
+            //}
 
-            var user = (LOGIN)Session["USER"];
+            //var user = (LOGIN)Session["USER"];
 
-            if (user != null)
-            {
-                using (var db = new MonzonEntities())
-                {
-                    var dbUser = db.LOGIN.FirstOrDefault(l => l.UNIQUE_ID == user.UNIQUE_ID);
-                    dbUser.EMAIL = txtEmailNew.Text;
-                    db.LOGIN.Attach(dbUser);
-                    db.Entry(dbUser).State = EntityState.Modified;
-                    db.SaveChanges();
-                }
-            }
+            //if (user != null)
+            //{
+            //    using (var db = new MonzonEntities())
+            //    {
+            //        var dbUser = db.LOGIN.FirstOrDefault(l => l.UNIQUE_ID == user.UNIQUE_ID);
+            //        dbUser.EMAIL = txtEmailNew.Text;
+            //        db.LOGIN.Attach(dbUser);
+            //        db.Entry(dbUser).State = EntityState.Modified;
+            //        db.SaveChanges();
+            //    }
+            //}
         }
 
         private Boolean ValidEmail(String email)
@@ -203,6 +206,11 @@ namespace Monzon.Pages
             }
         }
 
+        protected void btnMessageLeader_Click(object sender, EventArgs e)
+        {
+            
+        }
+        
         protected void Unnamed13_Click(object sender, EventArgs e)
         {
             var user = (LOGIN)Session["USER"];
@@ -232,6 +240,36 @@ namespace Monzon.Pages
                         //LA PASSWORD ANTIGUA NO ES CORRECTA
                     }
                 }
+            }
+        }
+
+        private void LeaderData()
+        {
+            var leader = LoginRepository.Instance.GetLeader();
+            lblUserData.Text = leader.LOGIN1;
+            lblNameData.Text = leader.FIRST_NAME + " " + leader.LAST_NAME;
+        }
+
+        private void R4Data()
+        {
+            var r4Members = LoginRepository.Instance.GetR4Members();
+
+            foreach (var r4 in r4Members)
+            {
+                var memberPanel = new Panel();
+
+                var lUser = new Label {Text = "User: "};
+                memberPanel.Controls.Add(lUser);
+
+                var lUserData = new Label {Text = r4.LOGIN1};
+                memberPanel.Controls.Add(lUserData);
+
+                var lName = new Label { Text = "Name: " };
+                memberPanel.Controls.Add(lName);
+
+                var lNameData = new Label { Text = r4.FIRST_NAME + " " + r4.LAST_NAME };
+                memberPanel.Controls.Add(lNameData);
+
             }
         }
     }

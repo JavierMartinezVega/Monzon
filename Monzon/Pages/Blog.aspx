@@ -6,12 +6,12 @@
     <asp:Panel runat="server" CssClass="contentBox">
         <div class="pageTitle">Blog</div>
         
-            <asp:Panel runat="server" ID="pnlPosts" >
+             <asp:Panel runat="server" ID="pnlPosts" >
             
             </asp:Panel>
 
             <asp:Panel runat="server" ID="pnlMore" Visible="false">
-                <asp:Button Text="View more" runat="server" CssClass="saveButton" OnClick="Unnamed13_Click"/>
+                <asp:Button Text="Load more" runat="server" CssClass="saveButton" OnClick="Unnamed13_Click"/>
             </asp:Panel>
 
     </asp:Panel>

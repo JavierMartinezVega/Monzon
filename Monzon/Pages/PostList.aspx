@@ -7,11 +7,11 @@
         <div class="pageTitle">Posts List</div>
         
             <asp:Panel runat="server" ID="pnlPosts" >
-            <asp:GridView runat="server" ID="lstPost"></asp:GridView>
+            
             </asp:Panel>
 
             <asp:Panel runat="server" ID="pnlMore" Visible="false">
-                <asp:Button Text="Refresh grid" runat="server" CssClass="saveButton" OnClick="Unnamed13_Click"/>
+                <asp:Button Text="Load more" runat="server" CssClass="saveButton" OnClick="Unnamed13_Click"/>
             </asp:Panel>
 
     </asp:Panel>

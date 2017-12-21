@@ -35,6 +35,23 @@ namespace Monzon.BL.Repository
             }
         }
 
+        public LOGIN GetLeader()
+        {
+            using (var db = new MonzonEntities())
+            {
+                return db.LOGIN.Include(l => l.PROFILE).FirstOrDefault(l => l.PROFILE.BIZ_ID == "LED");
+            }
+        }
+
+
+        public List<LOGIN> GetR4Members()
+        {
+            using (var db = new MonzonEntities())
+            {
+                return db.LOGIN.Include(l => l.PROFILE).Where(l => l.PROFILE.BIZ_ID == "R4").ToList();
+            }
+        }
+
         public bool PasswordRecovery(LOGIN login, string random)
         {
             using (var ts = new TransactionScope())

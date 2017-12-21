@@ -19,22 +19,30 @@ namespace Monzon.MasterPages
 
                 if (user.PROFILE.BIZ_ID == "ADM" || user.PROFILE.BIZ_ID == "LED" || user.PROFILE.BIZ_ID == "R4")
                 {
-                    btnMap.Visible = true;
+                    pnlMap.Visible = true;
+                    pnlPlaces.Visible = true;
                 }
                 else
                 {
-                    btnMap.Visible = false;
+                    pnlMap.Visible = false;
+                    pnlPlaces.Visible = false;
                 }
             }
             else
             {
                 pnlUser.Visible = false;
                 pnlAcceso.Visible = true;
-                btnProfile.Visible = false;
-                btnMap.Visible = false;
+                pnlProfile.Visible = false;
+                pnlMap.Visible = false;
+                pnlPlaces.Visible = false;
             }
         }
 
+        protected void btnPlaces_Click(object sender, EventArgs e)
+        {
+            Response.Redirect("Places.aspx");
+        }
+       
         protected void btnHome_Click(object sender, EventArgs e)
         {
             Response.Redirect("Index.aspx");
@@ -75,8 +83,7 @@ namespace Monzon.MasterPages
             }
             else
             {
-                pnlUser.Visible = true;
-                pnlAcceso.Visible = false;
+                pnlFobiden.Visible = true;
             }
         }
 
@@ -108,7 +115,7 @@ namespace Monzon.MasterPages
 
         protected void btnGuild_Click(object sender, EventArgs e)
         {
-            Response.Redirect("Guild.aspx");
+            pnlSubGuild.Visible = !pnlSubGuild.Visible;
         }
 
         protected void btnMembers_Click(object sender, EventArgs e)

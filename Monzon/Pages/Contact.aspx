@@ -17,9 +17,18 @@
             </asp:Panel>
             <asp:Panel runat="server" CssClass="contentItem">
                 <asp:Label runat="server" ID="Label5">Message:</asp:Label>
-                <asp:TextBox runat="server" ID="txtMessage"></asp:TextBox>
+                <asp:TextBox runat="server" ID="txtMessage" TextMode="MultiLine" Width="100%" Height="20%"></asp:TextBox>
             </asp:Panel>
-            <asp:Button Text="Guardar" runat="server" CssClass="saveButton" ID="btnSend" OnClick="Unnamed13_Click"/>
+            
+             <asp:Panel runat="server" CssClass="contentItem">
+                <asp:Button Text="Send" runat="server" CssClass="saveButton" ID="btnSend" OnClick="Unnamed13_Click"/>
+             </asp:Panel>
+             <asp:Panel runat="server" CssClass="contentItem" ID="pnlOk" Visible="false">
+                <asp:Label runat="server">You email was succesfuly sent</asp:Label>
+             </asp:Panel>
+             <asp:Panel runat="server" CssClass="contentItem" ID="pnlError" Visible="false">
+                <asp:Label runat="server">There was an unexpected error sending your message</asp:Label>
+             </asp:Panel>
         </asp:Panel>
 
     </asp:Panel>

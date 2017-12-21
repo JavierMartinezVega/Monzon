@@ -3,6 +3,7 @@ namespace Monzon.BL.Repository
 {
     using System.Collections.Generic;
     using System.Linq;
+    using System.Data.Entity;
     using Model;
 
     public class PlaceRepository : BaseRepository<PLACE>
@@ -22,7 +23,7 @@ namespace Monzon.BL.Repository
         {
             using (var db = new MonzonEntities())
             {
-                return db.PLACE.Where(p => !p.DELETED && p.HIVE_ID == null).ToList();
+                return db.PLACE.Include(p => p.PLACE_TYPE).Where(p => !p.DELETED).ToList();
             }
         }
 
@@ -31,7 +32,8 @@ namespace Monzon.BL.Repository
         {
             using (var db = new MonzonEntities())
             {
-                return db.PLACE.Where(p => !p.DELETED && p.HIVE_ID != null).ToList();
+                return null;
+                //return db.PLACE.Where(p => !p.DELETED && p.HIVE_ID != null).ToList();
             }
         }
     }

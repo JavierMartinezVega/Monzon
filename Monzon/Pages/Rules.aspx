@@ -4,7 +4,7 @@
 </asp:Content>
 <asp:Content ID="Content2" ContentPlaceHolderID="ContentPlaceHolder1" runat="server">
     <asp:Panel runat="server" CssClass="contentBox">
-        <div class="pageTitle">Mi Perfil</div>
+        <div class="pageTitle">Rules</div>
         
         <ul class="tabs">
             <li role="presentation"><asp:LinkButton ID="btnPersonal" runat="server" OnClick="PersonalBtn_Click">Leader</asp:LinkButton></li>

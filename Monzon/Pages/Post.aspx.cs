@@ -6,42 +6,36 @@ namespace Monzon.Pages
     using System.Linq;
     using System.Text.RegularExpressions;
     using BL.Model;
+    using BL.Repository;
 
     public partial class Post : System.Web.UI.Page
     {
         protected void Page_Load(object sender, EventArgs e)
         {
-            //if (!IsPostBack)
-            //{
-            //    pnlEmail.Visible = false;
-            //    btnEmail.Attributes.Remove("class");
+            if (!IsPostBack)
+            {
+                var postId = Request.QueryString.Get("id");
 
-            //    pnlApply.Visible = false;
-            //    btnApply.Attributes.Remove("class");
+                if (postId != null)
+                {
+                    var post = PostRepository.Instance.GetPost(int.Parse(postId));
 
-            //    pnlPassword.Visible = false;
-            //    btnPassword.Attributes.Remove("class");
-
-            //    pnlPersonal.Visible = true;
-            //    btnPersonal.Attributes.Add("class", "active");
-
-            //    pnlActive.Visible = false;
-            //    btnActive.Attributes.Remove("class");
-
-            //    var user = (LOGIN)Session["USER"];
-
-            //    //if (user != null)
-            //    //{
-            //    //    txtName.Text = user.FIRST_NAME;
-            //    //    txtSurname.Text = user.LAST_NAME;
-            //    //    txtPhone.Text = user.PHONE;
-            //    //    txtEmailOld.Text = user.EMAIL;
-            //    //}
-            //    //else
-            //    //{
-            //    //    Response.Redirect("");
-            //    //}
-            //}
+                    if (post != null)
+                    {
+                        lbltitle.Text = post.TITLE;
+                        imgPost.ImageUrl = "../Images/post/" + post.URL;
+                        lblPost.Text = post.TEXT;
+                    }
+                    else
+                    {
+                        Response.Redirect("NotFound.aspx");
+                    }
+                }
+                else
+                {
+                    Response.Redirect("NotFound.aspx");
+                }
+            }
         }
 
         //protected void PasswordBtn_Click(object sender, EventArgs e)

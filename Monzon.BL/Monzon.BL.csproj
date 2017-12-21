@@ -76,6 +76,9 @@
     <Compile Include="Model\PLACE.cs">
       <DependentUpon>MonzonModel.tt</DependentUpon>
     </Compile>
+    <Compile Include="Model\PLACE_TYPE.cs">
+      <DependentUpon>MonzonModel.tt</DependentUpon>
+    </Compile>
     <Compile Include="Model\POST.cs">
       <DependentUpon>MonzonModel.tt</DependentUpon>
     </Compile>

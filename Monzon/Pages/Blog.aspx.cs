@@ -3,6 +3,8 @@ namespace Monzon.Pages
 {
     using System;
     using System.Configuration;
+    using System.Web.UI;
+    using System.Web.UI.HtmlControls;
     using System.Web.UI.WebControls;
     using BL.Model;
     using BL.Repository;
@@ -11,7 +13,7 @@ namespace Monzon.Pages
     {
         protected void Page_Load(object sender, EventArgs e)
         {
-            if (!IsPostBack)
+            //if (!IsPostBack)
                 LoadData(1);
         }
 
@@ -30,19 +32,34 @@ namespace Monzon.Pages
                 }
 
                 var panel = new Panel();
+                panel.Attributes.Add("class", "box");
+
+
+                var imagePanel = new Panel();
+                imagePanel.Attributes.Add("class", "image");
 
                 var image = new Image { ImageUrl = "../Images/post/" + post.URL, Width=100 };
+                imagePanel.Controls.Add(image);
 
-                var labelTitle = new Label { Text = post.TITLE };
+                var panelContainer = new Panel();
+                panelContainer.Attributes.Add("class", "container");
 
-                var labelText = new Label { Text = post.TEXT };
+                var labelTitle = new HtmlGenericControl("div");
+                labelTitle.Attributes.Add("class", "title");
+                labelTitle.InnerHtml = post.TITLE;
 
-                var linkButton = new LinkButton { Text = "Read more...", PostBackUrl = "Post.aspx?id=" + post.UNIQUE_ID };
 
-                panel.Controls.Add(image);
-                panel.Controls.Add(labelTitle);
-                panel.Controls.Add(labelText);
-                panel.Controls.Add(linkButton);
+                var labelText = new HtmlGenericControl("div");
+                labelText.Attributes.Add("class", "content");
+                labelText.InnerHtml = post.TEXT;
+
+                //var linkButton = new LinkButton { Text = "Read more...", PostBackUrl = "Post.aspx?id=" + post.UNIQUE_ID };
+
+                panelContainer.Controls.Add(labelTitle);
+                panelContainer.Controls.Add(labelText);
+
+                panel.Controls.Add(imagePanel);
+                panel.Controls.Add(panelContainer);
 
                 pnlPosts.Controls.Add(panel);
                 i = i++;

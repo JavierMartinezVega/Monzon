@@ -92,7 +92,9 @@
     <Content Include="Global.asax" />
     <Content Include="Images\addBlue.svg" />
     <Content Include="Images\add.svg" />
-    <Content Include="Images\label.svg" />
+    <Content Include="Images\label.svg">
+      <SubType>Designer</SubType>
+    </Content>
     <Content Include="Images\logo.svg" />
     <Content Include="Images\Map\BigBluePointer.png" />
     <Content Include="Images\Map\BigGreenPointer.png" />

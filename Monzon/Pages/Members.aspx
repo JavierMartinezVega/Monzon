@@ -6,7 +6,7 @@
     <asp:Panel runat="server" CssClass="contentBox">
         <div class="pageTitle">Members</div>
         
-        <ul class="tabs">
+        <ul class="navTabs">
             <li role="presentation"><asp:LinkButton ID="btnPersonal" runat="server" OnClick="PersonalBtn_Click">Leader</asp:LinkButton></li>
             <li role="presentation"><asp:LinkButton ID="btnEmail" runat="server" OnClick="EmailBtn_Click">Range 4</asp:LinkButton></li>
             <li role="presentation"><asp:LinkButton ID="btnPassword" runat="server" OnClick="PasswordBtn_Click">Range 3</asp:LinkButton></li>

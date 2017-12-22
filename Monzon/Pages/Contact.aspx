@@ -17,7 +17,7 @@
             </asp:Panel>
             <asp:Panel runat="server" CssClass="contentItem">
                 <asp:Label runat="server" ID="Label5">Message:</asp:Label>
-                <asp:TextBox runat="server" ID="txtMessage" TextMode="MultiLine" Width="100%" Height="20%"></asp:TextBox>
+                <asp:TextBox runat="server" ID="txtMessage" TextMode="MultiLine"></asp:TextBox>
             </asp:Panel>
             
              <asp:Panel runat="server" CssClass="contentItem">
